@@ -42,7 +42,8 @@ public class Controller0 implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        addPersonaTest("1", "Persona1");
+        addPersonaTest("2", "Persona2");
         // Start choiceBox setting onaction event
         instance=this;
     }
@@ -63,6 +64,21 @@ public class Controller0 implements Initializable {
             }
             
         });
+    }
+    private void addPersonaTest(String id, String name){
+        try{
+            URL resource = this.getClass().getResource("./assets/listItem.fxml");
+            FXMLLoader loader = new FXMLLoader(resource);
+            Parent itemTemplate = loader.load();
+            ControllerItem itemController = loader.getController();
+            itemController.setName(name);
+            itemController.setNumber(id);
+            vBoxList.getChildren().add(itemTemplate);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        
+        // Add template to the list
     }
     private void addPersona(JSONObject persona){
         try{
