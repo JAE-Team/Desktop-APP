@@ -16,9 +16,7 @@ public class ControllerItem {
 
     @FXML
     private void handleMenuAction() {
-        Controller2.getInstance().updateView(person);
         System.out.println(name.getText());
-        setView2();
     }
     @FXML
     private void setView2() {
