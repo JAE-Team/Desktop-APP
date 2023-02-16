@@ -42,8 +42,8 @@ public class Controller0 implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        addPersonaTest("1", "Persona1");
-        addPersonaTest("2", "Persona2");
+        getUsers();
+
         // Start choiceBox setting onaction event
         instance=this;
     }
@@ -53,12 +53,13 @@ public class Controller0 implements Initializable {
         UtilsViews.setViewAnimating("View0");
     }
     @FXML
-    public void getPersonas(){
+    public void getUsers(){
         vBoxList.getChildren().clear();
-        UtilsHTTP.sendPOST(Main.protocol+"://" + Main.host + ":" + Main.port + "/people", "si", (response) -> {
+        UtilsHTTP.sendPOST(Main.protocol+"://" + Main.host + ":" + Main.port + "/get_profiles", "si", (response) -> {
             JSONObject objResponse = new JSONObject(response);
             //JSONArray JSONlist = objResponse.get("");
             JSONArray jsonArray = objResponse.getJSONArray("result");
+            
             for(int i=0;i<jsonArray.length();i++){
                 addPersona(jsonArray.getJSONObject(i));
             }
@@ -86,7 +87,7 @@ public class Controller0 implements Initializable {
             FXMLLoader loader = new FXMLLoader(resource);
             Parent itemTemplate = loader.load();
             ControllerItem itemController = loader.getController();
-            itemController.setName(String.valueOf(persona.get("name")));
+            itemController.setName(String.valueOf(persona.get("userID")));
             itemController.setNumber(String.valueOf(persona.get("id")));
             itemController.setPerson(persona);
             vBoxList.getChildren().add(itemTemplate);

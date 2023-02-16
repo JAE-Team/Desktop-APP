@@ -11,7 +11,7 @@ public class Main extends Application {
 
     public static UtilsWS socketClient;
 
-    public static int port = 3000;
+    public static int port = 3001;
     public static String protocol = "http";
     public static String host = "localhost";
     
