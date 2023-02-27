@@ -42,7 +42,7 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <GridPane layoutX="272.0" layoutY="92.0" prefHeight="202.0" prefWidth="284.0" AnchorPane.leftAnchor="272.0" AnchorPane.topAnchor="92.0">
+      <GridPane layoutX="272.0" layoutY="92.0" prefHeight="202.0" prefWidth="327.0" AnchorPane.leftAnchor="272.0" AnchorPane.topAnchor="92.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -58,13 +58,13 @@
             <Label text="User ID:" />
             <Label text="Name:" GridPane.rowIndex="1" />
             <Label text="Surname:" GridPane.rowIndex="2" />
-            <Label text="Label" GridPane.columnIndex="1" />
-            <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label text="655784932" GridPane.columnIndex="1" />
+            <Label text="Joan" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="Garcia" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label text="Mail:" GridPane.rowIndex="3" />
             <Label text="Phone:" GridPane.rowIndex="4" />
-            <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label text="joangarcia@gmail.com" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label text="655784932" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>
       </GridPane>
       <ProgressIndicator fx:id="loading" layoutX="530.0" layoutY="20.0" visible="false" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="20.0" />
