@@ -11,9 +11,9 @@ public class Main extends Application {
 
     public static UtilsWS socketClient;
 
-    public static int port = 3001;
-    public static String protocol = "http";
-    public static String host = "localhost";
+    public static int port = 443;
+    public static String protocol = "https";
+    public static String host = "server-production-e914.up.railway.app";
     
 
     // Exemple de configuració per Railway

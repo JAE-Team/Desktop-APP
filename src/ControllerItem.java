@@ -7,7 +7,7 @@ import javafx.scene.shape.Polygon;
 public class ControllerItem {
     
     @FXML
-    private Label number, name;
+    private Label number, name, phone;
 
     @FXML
     private Polygon coloredShape;
@@ -34,7 +34,12 @@ public class ControllerItem {
     public void setPerson(JSONObject person){
         this.person=person;
     }
-
+    public Label getPhone() {
+        return phone;
+    }
+    public void setPhone(String phone) {
+        this.phone.setText(phone);
+    }
     public void setColor(String color) {
         coloredShape.setStyle("-fx-fill: " + color);
     }

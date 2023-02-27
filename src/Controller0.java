@@ -33,7 +33,6 @@ public class Controller0 implements Initializable {
 
     @FXML
     private ProgressIndicator loading;
-    private int loadingCounter = 0;
 
     @FXML
     private VBox vBoxList = new VBox();
@@ -55,15 +54,16 @@ public class Controller0 implements Initializable {
     @FXML
     public void getUsers(){
         vBoxList.getChildren().clear();
-        UtilsHTTP.sendPOST(Main.protocol+"://" + Main.host + ":" + Main.port + "/get_profiles", "si", (response) -> {
+        loading.setVisible(true);
+        UtilsHTTP.sendPOST(Main.protocol+"://" + Main.host + ":" + Main.port + "/api/get_profiles", "si", (response) -> {
             JSONObject objResponse = new JSONObject(response);
             //JSONArray JSONlist = objResponse.get("");
-            JSONArray jsonArray = objResponse.getJSONArray("result");
+            JSONArray jsonArray = objResponse.getJSONArray("message");
             
             for(int i=0;i<jsonArray.length();i++){
                 addPersona(jsonArray.getJSONObject(i));
             }
-            
+            loading.setVisible(false);
         });
     }
     private void addPersonaTest(String id, String name){
@@ -87,7 +87,9 @@ public class Controller0 implements Initializable {
             FXMLLoader loader = new FXMLLoader(resource);
             Parent itemTemplate = loader.load();
             ControllerItem itemController = loader.getController();
-            itemController.setName(String.valueOf(persona.get("userID")));
+
+            itemController.setPhone(String.valueOf(persona.get("userId")));
+            itemController.setName(String.valueOf(persona.get("userName"))+String.valueOf(persona.get("userSurname")));
             itemController.setNumber(String.valueOf(persona.get("id")));
             itemController.setPerson(persona);
             vBoxList.getChildren().add(itemTemplate);
@@ -101,18 +103,7 @@ public class Controller0 implements Initializable {
     private void setView3() {
         UtilsViews.setViewAnimating("View3");
     }
-    private void showLoading () {
-        loadingCounter++;
-        loading.setVisible(true);
-    }
 
-    private void hideLoading () {
-        loadingCounter--;
-        if (loadingCounter <= 0) {
-            loadingCounter = 0;
-            loading.setVisible(false);
-        }
-    }
 
     public static Controller0 getInstance(){
         return instance;

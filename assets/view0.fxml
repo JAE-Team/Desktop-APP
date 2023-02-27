@@ -15,11 +15,6 @@
 
 <AnchorPane fx:id="anchor" minHeight="500.0" minWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller0">
    <children>
-      <HBox alignment="CENTER" layoutX="20.0" prefWidth="100.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
-         <children>
-            <ProgressIndicator fx:id="loading" scaleX="0.5" scaleY="0.5" visible="false" />
-         </children>
-      </HBox>
       <HBox alignment="CENTER" layoutX="20.0" layoutY="460.0" prefWidth="100.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="30.0">
          <children>
             <Label fx:id="txtError" text="ERROR" textFill="RED" visible="false" />
@@ -72,5 +67,6 @@
             <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>
       </GridPane>
+      <ProgressIndicator fx:id="loading" layoutX="530.0" layoutY="20.0" visible="false" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="20.0" />
    </children>
 </AnchorPane>
