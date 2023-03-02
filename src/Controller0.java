@@ -23,7 +23,7 @@ import javafx.util.Duration;
 public class Controller0 implements Initializable {
 
     @FXML
-    private Label number, name;
+    private Label idField, nameField, surnameField, mailField, phoneField;
 
     @FXML
     private ImageView imgConsole;
@@ -92,6 +92,8 @@ public class Controller0 implements Initializable {
             itemController.setName(String.valueOf(persona.get("userName"))+String.valueOf(persona.get("userSurname")));
             itemController.setNumber(String.valueOf(persona.get("id")));
             itemController.setPerson(persona);
+            /* Creamos el item i le especificamos los campos que modificara en caso de clicar-lo */
+            itemController.setlinkedLabels(idField, nameField, surnameField, mailField, phoneField);
             vBoxList.getChildren().add(itemTemplate);
         }catch(Exception e){
             e.printStackTrace();

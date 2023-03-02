@@ -58,8 +58,8 @@
             <Label text="User ID:" />
             <Label text="Name:" GridPane.rowIndex="1" />
             <Label text="Surname:" GridPane.rowIndex="2" />
-            <Label text="655784932" GridPane.columnIndex="1" />
-            <Label text="Joan" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="idField" text="655784932" GridPane.columnIndex="1" />
+            <Label fx:id="nameField" text="Joan" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label text="Garcia" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label text="Mail:" GridPane.rowIndex="3" />
             <Label text="Phone:" GridPane.rowIndex="4" />
