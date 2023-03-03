@@ -5,12 +5,6 @@ import javafx.scene.control.Label;
 import javafx.scene.shape.Polygon;
 
 public class ControllerItem {
-    
-    /* Estas labels son las del view0, se las pasaremos al crear el item 
-     * de esta forma cuando le demos a un item, se ejecuta el metodo displayInfo() 
-     * se cargara la informacion que tiene en la person a la view0
-     * con solo pulsar un item 
-    */
     @FXML
     private Label number, name, phone;
 
@@ -19,7 +13,7 @@ public class ControllerItem {
 
     private JSONObject person;
 
-    private Label idField, nameField, surnameField, phoneField, mailField;
+    private Controller0 controllerView0;
 
     @FXML
     private void handleMenuAction() {
@@ -51,24 +45,20 @@ public class ControllerItem {
         coloredShape.setStyle("-fx-fill: " + color);
     }
 
-    /* Para pasarle las labels del view0 que modificara cuando lo cliquemos */
-    public void setlinkedLabels(Label idField, Label nameField, Label surnameField, Label phoneField, Label mailField) {
-        this.idField = idField;
-        this.nameField = nameField;
-        this.surnameField = surnameField;
-        this.phoneField = phoneField;
-        this.mailField = mailField;
-    }
-
     @FXML
     /* Funcion para que el Item cargue la información,
-    en esas labels de view0 */
+    en la view0, a partir del controlador*/
     public void displayInfo() {
-        idField.setText(number.getText());
-        nameField.setText(String.valueOf(person.get("userName")));
-        surnameField.setText(String.valueOf(person.get("userSurname")));
-        phoneField.setText(phone.getText());
-        mailField.setText(String.valueOf(person.get("userMail")));
+        controllerView0.setId(number.getText());
+        controllerView0.setName(String.valueOf(person.get("userName")));
+        controllerView0.setSurname(String.valueOf(person.get("userSurname")));
+        controllerView0.setMail(String.valueOf(person.get("userMail")));
+        controllerView0.setPhone(phone.getText());
+    }
+
+    public void chargeTransactions(){
+        // Codigo para obtener un JSONObject de transacciones
+        controllerView0.addTransaction(new JSONObject());
     }
 
 }

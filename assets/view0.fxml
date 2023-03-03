@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchor" minHeight="500.0" minWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller0">
+<AnchorPane fx:id="anchor" minHeight="500.0" minWidth="700.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller0">
    <children>
       <HBox alignment="CENTER" layoutX="20.0" layoutY="460.0" prefWidth="100.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="30.0">
          <children>
@@ -42,7 +42,7 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <GridPane layoutX="272.0" layoutY="92.0" prefHeight="202.0" prefWidth="327.0" AnchorPane.leftAnchor="272.0" AnchorPane.topAnchor="92.0">
+      <GridPane layoutX="253.0" layoutY="62.0" prefHeight="150.0" prefWidth="320.0" AnchorPane.leftAnchor="253.0" AnchorPane.topAnchor="62.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -60,13 +60,18 @@
             <Label text="Surname:" GridPane.rowIndex="2" />
             <Label fx:id="idField" text="655784932" GridPane.columnIndex="1" />
             <Label fx:id="nameField" text="Joan" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label text="Garcia" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label fx:id="surnameField" text="Garcia" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label text="Mail:" GridPane.rowIndex="3" />
             <Label text="Phone:" GridPane.rowIndex="4" />
-            <Label text="joangarcia@gmail.com" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Label text="655784932" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label fx:id="mailField" text="joangarcia@gmail.com" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label fx:id="phoneField" text="655784932" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>
       </GridPane>
       <ProgressIndicator fx:id="loading" layoutX="530.0" layoutY="20.0" visible="false" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="20.0" />
+      <ScrollPane layoutX="253.0" layoutY="239.0" prefHeight="200.0" prefWidth="400.0">
+         <content>
+            <VBox fx:id="vBoxTransactions" />
+         </content>
+      </ScrollPane>
    </children>
 </AnchorPane>

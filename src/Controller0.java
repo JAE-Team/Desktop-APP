@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 import org.json.JSONArray;
@@ -37,11 +38,17 @@ public class Controller0 implements Initializable {
     @FXML
     private VBox vBoxList = new VBox();
 
+    @FXML
+    private VBox vBoxTransactions= new VBox();
+
     private static Controller0 instance;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         getUsers();
+            /* Experimento, hay que quitar */
+        pruebaTransacciones();
+            /* Experimento, hay que quitar */
 
         // Start choiceBox setting onaction event
         instance=this;
@@ -93,7 +100,6 @@ public class Controller0 implements Initializable {
             itemController.setNumber(String.valueOf(persona.get("id")));
             itemController.setPerson(persona);
             /* Creamos el item i le especificamos los campos que modificara en caso de clicar-lo */
-            itemController.setlinkedLabels(idField, nameField, surnameField, mailField, phoneField);
             vBoxList.getChildren().add(itemTemplate);
         }catch(Exception e){
             e.printStackTrace();
@@ -101,14 +107,78 @@ public class Controller0 implements Initializable {
         
         // Add template to the list
     }
+
+    /* Añade una unica transaccion, este metodo sera llamado al clicar 
+    el ItemList del usuario tantas veces como transacciones tenga este
+     */
+    public void addTransaction(JSONObject transaction){
+
+    }
+
+    /* Experimento, hay que quitar */
+
+    public void pruebaTransacciones(){
+        try{
+            URL resource = this.getClass().getResource("./assets/transactionItem.fxml");
+            
+
+            vBoxTransactions.getChildren().clear();
+            for (int i=1;i<10;i++){
+                FXMLLoader loader = new FXMLLoader(resource);
+                Parent transaction = loader.load();
+                ControllerTransaction transactionController = loader.getController();
+                transactionController.setPayer(generateRandomString()+i);
+                transactionController.setReceiver(generateRandomString()+i);
+                transactionController.setAmount("Amount "+i);
+                transactionController.setDate("Date "+i);
+                vBoxTransactions.getChildren().add(transaction);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+    public static String generateRandomString() {
+        int length = new Random().nextInt(26) + 5; // Random length between 5 and 30
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < length; i++) {
+            int index = new Random().nextInt(characters.length());
+            sb.append(characters.charAt(index));
+        }
+        return sb.toString();
+    }
+
+    /* Experimento, hay que quitar */
+
     @FXML
     private void setView3() {
         UtilsViews.setViewAnimating("View3");
     }
 
+    public void setId(String id){
+        idField.setText(id);
+    }
 
     public static Controller0 getInstance(){
         return instance;
+    }
+
+    public void setName(String name){
+        nameField.setText(name);
+    }
+
+    public void setSurname(String surname){
+        surnameField.setText(surname);
+    }
+
+    public void setMail(String mail){
+        mailField.setText(mail);
+    }
+
+    public void setPhone(String phone){
+        phoneField.setText(phone);
     }
 
 }
