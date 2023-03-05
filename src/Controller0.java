@@ -47,7 +47,7 @@ public class Controller0 implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         getUsers();
             /* Experimento, hay que quitar */
-        pruebaTransacciones();
+        // pruebaTransacciones();
             /* Experimento, hay que quitar */
 
         // Start choiceBox setting onaction event
@@ -96,7 +96,7 @@ public class Controller0 implements Initializable {
             ControllerItem itemController = loader.getController();
 
             itemController.setPhone(String.valueOf(persona.get("userId")));
-            itemController.setName(String.valueOf(persona.get("userName"))+String.valueOf(persona.get("userSurname")));
+            itemController.setName(String.valueOf(persona.get("userName"))+" "+String.valueOf(persona.get("userSurname")));
             itemController.setNumber(String.valueOf(persona.get("id")));
             itemController.setPerson(persona);
             /* Creamos el item i le especificamos los campos que modificara en caso de clicar-lo */
@@ -111,8 +111,29 @@ public class Controller0 implements Initializable {
     /* Añade una unica transaccion, este metodo sera llamado al clicar 
     el ItemList del usuario tantas veces como transacciones tenga este
      */
-    public void addTransaction(JSONObject transaction){
+    public void addTransaction(JSONObject transactionObject){
+        try{
+            URL resource = this.getClass().getResource("./assets/transactionItem.fxml");
+            FXMLLoader loader = new FXMLLoader(resource);
+            Parent transaction = loader.load();
+            ControllerTransaction transactionController = loader.getController();
+            String payer = transactionObject.isNull("userOrigin") ? "Undefined" : transactionObject.getString("userOrigin");
+            transactionController.setPayer(payer);
 
+            String receiver = transactionObject.isNull("userDestiny") ? "Undefined" : transactionObject.getString("userDestiny");
+            transactionController.setReceiver(receiver);
+
+            double amountValue = transactionObject.isNull("ammount") ? Double.NaN : transactionObject.getDouble("ammount");
+            String amount = Double.isNaN(amountValue) ? "Undefined" : String.valueOf(amountValue);
+            transactionController.setAmount(amount);
+
+            String date = transactionObject.isNull("timeSetup") ? "Undefined" : transactionObject.getString("timeSetup");
+            transactionController.setDate(date);
+
+            vBoxTransactions.getChildren().add(transaction);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     /* Experimento, hay que quitar */
@@ -121,8 +142,7 @@ public class Controller0 implements Initializable {
         try{
             URL resource = this.getClass().getResource("./assets/transactionItem.fxml");
             
-
-            vBoxTransactions.getChildren().clear();
+            clearTransactions();
             for (int i=1;i<10;i++){
                 FXMLLoader loader = new FXMLLoader(resource);
                 Parent transaction = loader.load();
@@ -179,6 +199,10 @@ public class Controller0 implements Initializable {
 
     public void setPhone(String phone){
         phoneField.setText(phone);
+    }
+
+    public void clearTransactions(){
+        vBoxTransactions.getChildren().clear();
     }
 
 }

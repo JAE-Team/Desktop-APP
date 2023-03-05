@@ -74,7 +74,9 @@ public class Main extends Application {
 
     @Override
     public void stop() { 
-        socketClient.close();
+        if(socketClient != null){
+            socketClient.close();
+        }
         System.exit(1); // Kill all executor services
     }
 }
