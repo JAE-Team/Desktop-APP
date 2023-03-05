@@ -117,10 +117,12 @@ public class Controller0 implements Initializable {
             FXMLLoader loader = new FXMLLoader(resource);
             Parent transaction = loader.load();
             ControllerTransaction transactionController = loader.getController();
-            String payer = transactionObject.isNull("userOrigin") ? "Undefined" : transactionObject.getString("userOrigin");
+            String payer = transactionObject.isNull("userOrigin") ? "Undefined" : transactionObject.getString("originName") 
+            + " " +transactionObject.getString("originSurname");
             transactionController.setPayer(payer);
 
-            String receiver = transactionObject.isNull("userDestiny") ? "Undefined" : transactionObject.getString("userDestiny");
+            String receiver = transactionObject.isNull("userDestiny") ? "Undefined" : transactionObject.getString("destinyName")
+            + " " +transactionObject.getString("destinySurname");;
             transactionController.setReceiver(receiver);
 
             double amountValue = transactionObject.isNull("ammount") ? Double.NaN : transactionObject.getDouble("ammount");
