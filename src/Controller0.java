@@ -18,7 +18,7 @@ import javafx.scene.layout.VBox;
 public class Controller0 implements Initializable {
 
     @FXML
-    private Label idField, nameField, surnameField, mailField, phoneField;
+    private Label idField, nameField, surnameField, mailField, phoneField, ammountField;
 
     @FXML
     private ImageView imgConsole;
@@ -201,6 +201,10 @@ public class Controller0 implements Initializable {
 
     public void setPhone(String phone){
         phoneField.setText(phone);
+    }
+
+    public void setAmmount(String ammount){
+        ammountField.setText(ammount);
     }
 
     public void clearTransactions(){

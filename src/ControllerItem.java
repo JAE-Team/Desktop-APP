@@ -57,10 +57,12 @@ public class ControllerItem {
         controllerView0.setSurname(String.valueOf(person.get("userSurname")));
         controllerView0.setMail(String.valueOf(person.get("userEmail")));
         controllerView0.setPhone(phone.getText());
-        chargeTransactions();
+        controllerView0.setAmmount(String.valueOf(person.get("userBalance")));
+        chargeTransactions(number.getText());
     }
 
-    public void chargeTransactions(){
+    /* Pide el id de usuario */
+    public void chargeTransactions(String userId){
         Controller0 controllerView0 = (Controller0) UtilsViews.getController("View0");
         JSONObject obJSON = new JSONObject("{}");
         obJSON.put("userId", phone.getText());
@@ -69,7 +71,7 @@ public class ControllerItem {
             JSONObject objResponse = new JSONObject(response);
             Object message = objResponse.get("message");
         
-            // System.out.println("Recibido del server: "+objResponse.toString());
+            System.out.println("Recibido del server: "+objResponse.toString());
             if (message instanceof String) {
                 UtilsAlerts.alertError("Error", "No se ha podido obtener del servidor la información de las transferencias de "+name.getText());
             } else if (message instanceof JSONArray) {
