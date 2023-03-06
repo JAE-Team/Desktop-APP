@@ -1,14 +1,10 @@
-import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Random;
 import java.util.ResourceBundle;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -16,10 +12,8 @@ import javafx.scene.Parent;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import javafx.util.Duration;
 
 public class Controller0 implements Initializable {
 
@@ -59,22 +53,24 @@ public class Controller0 implements Initializable {
         UtilsViews.setViewAnimating("View0");
     }
     @FXML
-    public void getUsers(){
+    public void getUsers() {
         vBoxList.getChildren().clear();
         loading.setVisible(true);
-        UtilsHTTP.sendPOST(Main.protocol+"://" + Main.host + ":" + Main.port + "/api/get_profiles", "si", (response) -> {
-            JSONObject objResponse = new JSONObject(response);
-            //JSONArray JSONlist = objResponse.get("");
-            JSONArray jsonArray = objResponse.getJSONArray("message");
-            
-            for(int i=0;i<jsonArray.length();i++){
-                addPersona(jsonArray.getJSONObject(i));
-            }
-            loading.setVisible(false);
-        });
+        UtilsHTTP.sendPOST(Main.protocol + "://" + Main.host + ":" + Main.port + "/api/get_profiles", "si",
+                (response) -> {
+                    JSONObject objResponse = new JSONObject(response);
+                    //JSONArray JSONlist = objResponse.get("");
+                    JSONArray jsonArray = objResponse.getJSONArray("message");
+
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        addPersona(jsonArray.getJSONObject(i));
+                    }
+                    loading.setVisible(false);
+                });
     }
-    private void addPersonaTest(String id, String name){
-        try{
+    
+    private void addPersonaTest(String id, String name) {
+        try {
             URL resource = this.getClass().getResource("./assets/listItem.fxml");
             FXMLLoader loader = new FXMLLoader(resource);
             Parent itemTemplate = loader.load();
@@ -82,12 +78,13 @@ public class Controller0 implements Initializable {
             itemController.setName(name);
             itemController.setNumber(id);
             vBoxList.getChildren().add(itemTemplate);
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         // Add template to the list
     }
+    
     private void addPersona(JSONObject persona){
         try{
             URL resource = this.getClass().getResource("./assets/listItem.fxml");
@@ -122,12 +119,15 @@ public class Controller0 implements Initializable {
             transactionController.setPayer(payer);
 
             String receiver = transactionObject.isNull("userDestiny") ? "Undefined" : transactionObject.getString("destinyName")
-            + " " +transactionObject.getString("destinySurname");;
+            + " " +transactionObject.getString("destinySurname");
             transactionController.setReceiver(receiver);
 
             double amountValue = transactionObject.isNull("ammount") ? Double.NaN : transactionObject.getDouble("ammount");
             String amount = Double.isNaN(amountValue) ? "Undefined" : String.valueOf(amountValue);
             transactionController.setAmount(amount);
+
+            String status = transactionObject.isNull("accepted") ? "Undefined" : transactionObject.getString("accepted");
+            transactionController.setStatus(status);
 
             String date = transactionObject.isNull("timeSetup") ? "Undefined" : transactionObject.getString("timeSetup");
             transactionController.setDate(date);

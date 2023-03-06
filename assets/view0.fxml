@@ -68,7 +68,7 @@
          </children>
       </GridPane>
       <ProgressIndicator fx:id="loading" layoutX="530.0" layoutY="20.0" visible="false" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="20.0" />
-      <ScrollPane layoutX="253.0" layoutY="239.0" prefHeight="200.0" prefWidth="400.0">
+      <ScrollPane layoutX="252.0" layoutY="221.0" maxHeight="400.0" maxWidth="500.0" prefHeight="217.0" prefWidth="440.0">
          <content>
             <VBox fx:id="vBoxTransactions" />
          </content>

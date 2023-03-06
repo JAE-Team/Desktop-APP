@@ -11,16 +11,20 @@ public class ControllerTransaction{
      */
 
     @FXML
-    private Label fieldPayer, fieldReceiver, fieldAmount, fieldDate;
+    private Label fieldPayer, fieldReceiver, fieldAmount, fieldStatus, fieldDate;
 
     public void setPayer(String payer){
         fieldPayer.setText(payer);
     }
 
-    public void setReceiver(String receiver){
+    public void setReceiver(String receiver) {
         fieldReceiver.setText(receiver);
     }
 
+    public void setStatus(String status) {
+        fieldStatus.setText(status);
+    }
+    
     public void setAmount(String amount){
         fieldAmount.setText(amount);
     }

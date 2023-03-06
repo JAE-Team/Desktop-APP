@@ -53,8 +53,8 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        final int windowWidth = 800;
-        final int windowHeight = 600;
+        final int windowWidth = 1000;
+        final int windowHeight = 800;
 
         UtilsViews.parentContainer.setStyle("-fx-font: 14 arial;");
         UtilsViews.addView(getClass(), "View0", "./assets/view0.fxml");
