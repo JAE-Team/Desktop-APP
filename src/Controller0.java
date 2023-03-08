@@ -1,10 +1,14 @@
 import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -24,7 +28,8 @@ public class Controller0 implements Initializable {
     private ImageView imgConsole;
 
     @FXML
-    private ChoiceBox<String> choiceBox;
+    private ChoiceBox<String> choiceBoxFilter;
+    private String[] filters = {"Tots", "estat del compte", "rang de saldos", "rang del nombre de transaccions"};
 
     @FXML
     private ProgressIndicator loading;
@@ -35,38 +40,101 @@ public class Controller0 implements Initializable {
     @FXML
     private VBox vBoxTransactions= new VBox();
 
+
     private static Controller0 instance;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         getUsers();
-            /* Experimento, hay que quitar */
-        // pruebaTransacciones();
-            /* Experimento, hay que quitar */
+        choiceBoxFilter.getItems().addAll(filters);
+        choiceBoxFilter.setValue(filters[0]);
 
-        // Start choiceBox setting onaction event
-        instance=this;
+            // Set action listener for the choice box
+        choiceBoxFilter.setOnAction(new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+            String selectedOption = choiceBoxFilter.getSelectionModel().getSelectedItem();
+            System.out.println("Selected option: " + selectedOption);
+            handleSelection(selectedOption);
+            }
+        });
+    instance=this;
+    }
+
+    /* Segun la opcion seleccionada por el usuario, que entramos
+     * en este metodo, se hara un post u otro para cargar ciertos usuarios
+     */
+    private void handleSelection(String option) {
+        String[] options;
+        String value;
+        List<String> optionsList;
+        switch(option){
+            case "Tots":
+                getUsers();
+                break;
+            case "estat del compte":
+                options = new String[]{"active", "inactive"};
+                value = UtilsAlerts.inputDialog("Selecciona un estat", "Estats disponibles: "+getOptions(options), "Estat:");
+                System.out.println(value);
+                optionsList = Arrays.asList(options);
+                if (optionsList.contains(value)){
+                    getUsers("Where userStatus = "+value+";");
+                }else{
+                    UtilsAlerts.alertError("Error", "Opció no vàlida", "L'opció introduida no és vàlida");
+                }
+
+                break;
+            case "rang de saldos":
+
+                getUsers();
+                break;
+            case "rang del nombre de transaccions":
+            
+                getUsers();
+                break;
+        }
+
+    }
+
+    private String getOptions(String[] options) {
+        String optionsStr = "";
+        for (int i = 0; i < filters.length; i++) {
+            optionsStr += filters[i] + "\n";
+        }
+        return optionsStr;
     }
 
     @FXML
     private void setView1() {
         UtilsViews.setViewAnimating("View0");
     }
-    @FXML
-    public void getUsers() {
+    
+    /* El metodo de cargar perfiles requerira de una query,
+     * la query puede estar vacia, los carga todos, o puede
+     * ser un WHERE, que se añadira al SELECT * FROM users; en la api
+     */
+    public void getUsers(String queryWhere) {
         vBoxList.getChildren().clear();
         loading.setVisible(true);
-        UtilsHTTP.sendPOST(Main.protocol + "://" + Main.host + ":" + Main.port + "/api/get_profiles", "si",
+        JSONObject objJSON = new JSONObject("{}");
+        objJSON.put("query", queryWhere);
+        UtilsHTTP.sendPOST(Main.protocol + "://" + Main.host + ":" + Main.port + "/api/get_profiles", objJSON.toString(),
                 (response) -> {
                     JSONObject objResponse = new JSONObject(response);
                     //JSONArray JSONlist = objResponse.get("");
                     JSONArray jsonArray = objResponse.getJSONArray("message");
+                    System.out.println("Recibido del server:" +jsonArray.toString());
 
                     for (int i = 0; i < jsonArray.length(); i++) {
                         addPersona(jsonArray.getJSONObject(i));
                     }
                     loading.setVisible(false);
                 });
+    }
+
+    @FXML
+    public void getUsers(){
+        getUsers("");
     }
     
     private void addPersonaTest(String id, String name) {
