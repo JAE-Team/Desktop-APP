@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
@@ -28,10 +29,6 @@ public class Controller0 implements Initializable {
     private ImageView imgConsole;
 
     @FXML
-    private ChoiceBox<String> choiceBoxFilter;
-    private String[] filters = {"Tots", "estat del compte", "rang de saldos", "rang del nombre de transaccions"};
-
-    @FXML
     private ProgressIndicator loading;
 
     @FXML
@@ -40,84 +37,84 @@ public class Controller0 implements Initializable {
     @FXML
     private VBox vBoxTransactions= new VBox();
 
+    @FXML
+    private Button buttonFilterState, buttonFilterBalances, buttonFilterTransactions;
+
+    @FXML
+    private Button buttonValidateUser;
 
     private static Controller0 instance;
+
+    private JSONObject filters= new JSONObject("{}");
+    /* 
+     * "filters" : {"filterBalance":"0;100", "filterTransactions":"0;10", "filterStatus":"WAITING_VERIFICATION"}
+     */
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         getUsers();
-        choiceBoxFilter.getItems().addAll(filters);
-        choiceBoxFilter.setValue(filters[0]);
 
-            // Set action listener for the choice box
-        choiceBoxFilter.setOnAction(new EventHandler<ActionEvent>() {
-        @Override
-        public void handle(ActionEvent event) {
-            String selectedOption = choiceBoxFilter.getSelectionModel().getSelectedItem();
-            System.out.println("Selected option: " + selectedOption);
-            handleSelection(selectedOption);
-            }
-        });
     instance=this;
-    }
-
-    /* Segun la opcion seleccionada por el usuario, que entramos
-     * en este metodo, se hara un post u otro para cargar ciertos usuarios
-     */
-    private void handleSelection(String option) {
-        String[] options;
-        String value;
-        List<String> optionsList;
-        switch(option){
-            case "Tots":
-                getUsers();
-                break;
-            case "estat del compte":
-                options = new String[]{"active", "inactive"};
-                value = UtilsAlerts.inputDialog("Selecciona un estat", "Estats disponibles: "+getOptions(options), "Estat:");
-                System.out.println(value);
-                optionsList = Arrays.asList(options);
-                if (optionsList.contains(value)){
-                    getUsers("Where userStatus = "+value+";");
-                }else{
-                    UtilsAlerts.alertError("Error", "Opció no vàlida", "L'opció introduida no és vàlida");
-                }
-
-                break;
-            case "rang de saldos":
-
-                getUsers();
-                break;
-            case "rang del nombre de transaccions":
-            
-                getUsers();
-                break;
-        }
-
-    }
-
-    private String getOptions(String[] options) {
-        String optionsStr = "";
-        for (int i = 0; i < filters.length; i++) {
-            optionsStr += filters[i] + "\n";
-        }
-        return optionsStr;
     }
 
     @FXML
     private void setView1() {
         UtilsViews.setViewAnimating("View0");
     }
+
+    /* Cada uno de los 3 Botones de filtro tendra 2 metodos, uno para cuando se clica añadir un filtro, 
+     * otro cuando se suelta para quitar el filtro, actuaran sobre el JSONObject filters
+    */
+
+    @FXML
+    private void setFilterStatus(){
+
+    }
+
+    @FXML
+    private void removeFilterStatus(){
+        filters.remove("filterStatus");
+
+    }
+
+    @FXML
+    private void setFilterBalance(){
+        
+    }
+
+    @FXML
+    private void removeFilterBalance(){
+        filters.remove("filterBalance");
+
+    }
+
+    @FXML
+    private void setFilterTransactions(){
+
+    }
+
+    @FXML
+    private void removeFilterTransactions(){
+        filters.remove("filterTransactions");
+
+    }
+
+    /* Metodo para implementar la spec 35, nos abrira una vista donde veremos las fotografias en grande y nos saldra el desplegable */
+    @FXML
+    private void validateUser(){
+
+    }
+
+
     
     /* El metodo de cargar perfiles requerira de una query,
      * la query puede estar vacia, los carga todos, o puede
      * ser un WHERE, que se añadira al SELECT * FROM users; en la api
      */
-    public void getUsers(String queryWhere) {
+    public void getUsers() {
         vBoxList.getChildren().clear();
         loading.setVisible(true);
         JSONObject objJSON = new JSONObject("{}");
-        objJSON.put("query", queryWhere);
         UtilsHTTP.sendPOST(Main.protocol + "://" + Main.host + ":" + Main.port + "/api/get_profiles", objJSON.toString(),
                 (response) -> {
                     JSONObject objResponse = new JSONObject(response);
@@ -142,27 +139,6 @@ public class Controller0 implements Initializable {
                 });
     }
 
-    @FXML
-    public void getUsers(){
-        getUsers("");
-    }
-    
-    private void addPersonaTest(String id, String name) {
-        try {
-            URL resource = this.getClass().getResource("./assets/listItem.fxml");
-            FXMLLoader loader = new FXMLLoader(resource);
-            Parent itemTemplate = loader.load();
-            ControllerItem itemController = loader.getController();
-            itemController.setName(name);
-            itemController.setNumber(id);
-            vBoxList.getChildren().add(itemTemplate);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        // Add template to the list
-    }
-    
     private void addPersona(JSONObject persona){
         try{
             URL resource = this.getClass().getResource("./assets/listItem.fxml");
@@ -214,29 +190,6 @@ public class Controller0 implements Initializable {
         }catch(Exception e){
             e.printStackTrace();
         }
-    }
-
-    /* Experimento, hay que quitar */
-
-    public void pruebaTransacciones(){
-        try{
-            URL resource = this.getClass().getResource("./assets/transactionItem.fxml");
-            
-            clearTransactions();
-            for (int i=1;i<10;i++){
-                FXMLLoader loader = new FXMLLoader(resource);
-                Parent transaction = loader.load();
-                ControllerTransaction transactionController = loader.getController();
-                transactionController.setPayer(generateRandomString()+i);
-                transactionController.setReceiver(generateRandomString()+i);
-                transactionController.setAmount("Amount "+i);
-                transactionController.setDate("Date "+i);
-                vBoxTransactions.getChildren().add(transaction);
-            }
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-
     }
 
     public static String generateRandomString() {
