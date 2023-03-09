@@ -122,7 +122,17 @@ public class Controller0 implements Initializable {
                 (response) -> {
                     JSONObject objResponse = new JSONObject(response);
                     //JSONArray JSONlist = objResponse.get("");
+                    
                     JSONArray jsonArray = objResponse.getJSONArray("message");
+                    // Assuming you already have a JSONArray object called jsonArray
+                    int length = jsonArray.length();
+                    for (int i = 0; i < length; i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        jsonObject.remove("anvers");
+                        jsonObject.remove("revers");
+                    }
+                    System.out.println("Recibido del server: " + jsonArray.toString());
+
                     System.out.println("Recibido del server:" +jsonArray.toString());
 
                     for (int i = 0; i < jsonArray.length(); i++) {

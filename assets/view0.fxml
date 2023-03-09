@@ -22,7 +22,7 @@
             <Label fx:id="txtError" text="ERROR" textFill="RED" visible="false" />
          </children>
       </HBox>
-      <ScrollPane fitToWidth="true" hbarPolicy="NEVER" layoutY="51.0" prefHeight="398.0" prefWidth="242.0" AnchorPane.bottomAnchor="51.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="50.0">
+      <ScrollPane fitToWidth="true" hbarPolicy="NEVER" layoutY="122.0" prefHeight="327.0" prefWidth="242.0" AnchorPane.bottomAnchor="51.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="50.0">
          <content>
             <VBox fx:id="vBoxList" />
          </content>
@@ -79,7 +79,7 @@
          </content>
       </ScrollPane>
       <ChoiceBox fx:id="choiceBoxFilter" layoutX="92.0" layoutY="12.0" prefHeight="36.0" prefWidth="150.0" />
-      <Label layoutX="10.0" layoutY="11.0" prefHeight="17.0" prefWidth="69.0" text="Filtres">
+      <Label layoutX="10.0" layoutY="11.0" prefHeight="17.0" prefWidth="50.0" text="Filtres">
          <padding>
             <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
          </padding>
