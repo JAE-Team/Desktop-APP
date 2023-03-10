@@ -1,7 +1,4 @@
-import org.json.JSONObject;
-
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -29,23 +26,6 @@ public class Main extends Application {
     public static ImageView imageView = new ImageView(); 
 
     public static void main(String[] args) {
-
-        // Iniciar WebSockets
-        //socketClient = UtilsWS.getSharedInstance(protocolWS + "://" + host + ":" + port);
-        /*
-        socketClient.onMessage((response) -> {
-            
-            // JavaFX necessita que els canvis es facin des de el thread principal
-            Platform.runLater(()->{ 
-                // Fer aquí els canvis a la interficie
-                 
-                JSONObject msgObj = new JSONObject(response);
-                Controller1 ctrl = (Controller1) UtilsViews.getController("View0");
-                ctrl.receiveMessage(msgObj);
-                System.out.println("SI");
-            });
-        });
-        */
         // Iniciar app JavaFX   
         launch(args);
     }
@@ -58,9 +38,10 @@ public class Main extends Application {
 
         UtilsViews.parentContainer.setStyle("-fx-font: 14 arial;");
         UtilsViews.addView(getClass(), "View0", "./assets/view0.fxml");
+        UtilsViews.addView(getClass(), "ViewValidation", "./assets/verificationDNI.fxml");
 
         Scene scene = new Scene(UtilsViews.parentContainer);
-        
+
         stage.setScene(scene);
         stage.setResizable(false);
         stage.onCloseRequestProperty(); // Call close method when closing window
@@ -68,9 +49,6 @@ public class Main extends Application {
         stage.setMinWidth(windowWidth);
         stage.setMinHeight(windowHeight);
         stage.show();
-
-        // Image icon = new Image("file:./assets/icon.png");
-        // stage.getIcons().add(icon);
     }
 
     @Override

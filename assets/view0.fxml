@@ -61,7 +61,7 @@
             <Label text="User ID:" />
             <Label text="Name:" GridPane.rowIndex="1" />
             <Label text="Surname:" GridPane.rowIndex="2" />
-            <Label fx:id="idField" text="655784932" GridPane.columnIndex="1" />
+            <Label fx:id="idField" text="5" GridPane.columnIndex="1" />
             <Label fx:id="nameField" text="Joan" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label fx:id="surnameField" text="Garcia" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label text="Mail:" GridPane.rowIndex="3" />
@@ -96,7 +96,7 @@
             <ToggleButton fx:id="buttonFilterTransactions" mnemonicParsing="false" onAction="#transactionsPressed" prefHeight="32.0" prefWidth="159.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #455A64; -fx-border-width: 3px;" text="Filter Transactions" GridPane.columnIndex="2" />
          </children>
       </GridPane>
-      <Button layoutX="553.0" layoutY="95.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#validateUser" prefHeight="53.0" prefWidth="118.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #455A64; -fx-border-width: 3px;" text=" Validate User" />
+      <Button fx:id="buttonValidateUser" layoutX="553.0" layoutY="95.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMousePressed="#validateUser" prefHeight="53.0" prefWidth="118.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #455A64; -fx-border-width: 3px;" text=" Validate User" />
       <Label layoutX="252.0" layoutY="235.0" text="USER TRANSACTIONS">
          <font>
             <Font name="System Bold" size="20.0" />

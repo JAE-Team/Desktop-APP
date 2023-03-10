@@ -137,7 +137,13 @@ public class Controller0 implements Initializable {
     /* Metodo para implementar la spec 35, nos abrira una vista donde veremos las fotografias en grande y nos saldra el desplegable */
     @FXML
     private void validateUser(){
-        System.out.println("Open tab validate user");
+        if (idField.getText() == null || idField.getText() == "") {
+            return;
+        } else {
+            UtilsViews.setViewAnimating("ViewValidation");
+            ControllerValidation ctrl = (ControllerValidation) UtilsViews.getController("ViewValidation");
+            ctrl.setId(idField.getText());
+        }
     }
 
 
@@ -161,9 +167,6 @@ public class Controller0 implements Initializable {
                         jsonObject.remove("anvers");
                         jsonObject.remove("revers");
                     }
-                    System.out.println("Recibido del server: " + jsonArray.toString());
-
-                    System.out.println("Recibido del server:" +jsonArray.toString());
 
                     for (int i = 0; i < jsonArray.length(); i++) {
                         addPersona(jsonArray.getJSONObject(i));
