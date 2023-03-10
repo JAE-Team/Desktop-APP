@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -38,12 +39,12 @@
                </graphic></Button>
          </children>
       </HBox>
-      <Label layoutX="253.0" layoutY="18.0" text="User details" AnchorPane.leftAnchor="253.0" AnchorPane.topAnchor="18.0">
+      <Label layoutX="252.0" layoutY="58.0" text="User details" AnchorPane.leftAnchor="252.0" AnchorPane.topAnchor="58.0">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <GridPane layoutX="253.0" layoutY="62.0" prefHeight="150.0" prefWidth="320.0" AnchorPane.leftAnchor="253.0" AnchorPane.topAnchor="62.0">
+      <GridPane layoutX="253.0" layoutY="101.0" prefHeight="120.0" prefWidth="320.0" AnchorPane.leftAnchor="253.0" AnchorPane.topAnchor="101.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -77,13 +78,24 @@
             <VBox fx:id="vBoxTransactions" />
          </content>
       </ScrollPane>
-      <ChoiceBox fx:id="choiceBoxFilter" layoutX="532.0" layoutY="15.0" prefHeight="36.0" prefWidth="150.0" />
-      <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="44.0" prefWidth="235.0">
+      <GridPane hgap="5.0" layoutX="10.0" layoutY="15.0" prefHeight="40.0" prefWidth="400.0" vgap="5.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="120.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="123.66668701171878" minWidth="10.0" prefWidth="120.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="156.3333282470703" minWidth="10.0" prefWidth="150.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <padding>
+            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+         </padding>
          <children>
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#setView3" prefHeight="32.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #455A64; -fx-border-width: 3px;" text="Transactions Count" />
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" style="-fx-background-color: #FFFFFF; -fx-border-color: #455A64; -fx-border-width: 3px;" text="Balance Range" />
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#setView3" style="-fx-background-color: #FFFFFF; -fx-border-color: #455A64; -fx-border-width: 3px;" text="Account State" />
+            <ToggleButton fx:id="buttonFilterState" mnemonicParsing="false" onAction="#statesPressed" prefHeight="32.0" prefWidth="129.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #455A64; -fx-border-width: 3px;" text="Filter by State" GridPane.columnIndex="0" />
+            <ToggleButton fx:id="buttonFilterBalances" mnemonicParsing="false" onAction="#balancesPressed" prefHeight="32.0" prefWidth="133.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #455A64; -fx-border-width: 3px;" text="Filter Balances" GridPane.columnIndex="1" />
+            <ToggleButton fx:id="buttonFilterTransactions" mnemonicParsing="false" onAction="#transactionsPressed" prefHeight="32.0" prefWidth="159.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #455A64; -fx-border-width: 3px;" text="Filter Transactions" GridPane.columnIndex="2" />
          </children>
-      </HBox>
+      </GridPane>
+      <Button layoutX="579.0" layoutY="93.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#validateUser" prefHeight="50.0" prefWidth="100.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #455A64; -fx-border-width: 3px;" text=" Validate User" />
    </children>
 </AnchorPane>

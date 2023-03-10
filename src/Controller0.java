@@ -17,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
@@ -38,7 +39,7 @@ public class Controller0 implements Initializable {
     private VBox vBoxTransactions= new VBox();
 
     @FXML
-    private Button buttonFilterState, buttonFilterBalances, buttonFilterTransactions;
+    private ToggleButton buttonFilterState, buttonFilterBalances, buttonFilterTransactions;
 
     @FXML
     private Button buttonValidateUser;
@@ -54,7 +55,13 @@ public class Controller0 implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         getUsers();
 
-    instance=this;
+        buttonFilterState.setSelected(false);
+
+        buttonFilterBalances.setSelected(false);
+
+        buttonFilterTransactions.setSelected(false);
+
+        instance=this;
     }
 
     @FXML
@@ -66,34 +73,62 @@ public class Controller0 implements Initializable {
      * otro cuando se suelta para quitar el filtro, actuaran sobre el JSONObject filters
     */
 
-    @FXML
-    private void setFilterStatus(){
 
+    @FXML
+    private void statesPressed(ActionEvent event) {
+        if (buttonFilterState.isSelected()) {
+            System.out.println("States pressed");
+            buttonFilterState.setStyle("-fx-background-color: #CFD8DC;");
+        } else {
+            System.out.println("States released");
+            buttonFilterState.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #455A64; -fx-border-width: 3px; -fx-padding: -5;");
+        }
     }
 
     @FXML
+    private void balancesPressed(ActionEvent event) {
+        if (buttonFilterBalances.isSelected()) {
+            System.out.println("Balances pressed");
+            buttonFilterBalances.setStyle("-fx-background-color: #CFD8DC;");
+        } else {
+            System.out.println("Balances released");
+            buttonFilterBalances.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #455A64; -fx-border-width: 3px;");
+        }
+    }
+
+    @FXML
+    private void transactionsPressed(ActionEvent event) {
+        if (buttonFilterTransactions.isSelected()) {
+            System.out.println("Transactions pressed");
+            buttonFilterTransactions.setStyle("-fx-background-color: #CFD8DC;");
+        } else {
+            System.out.println("Transactions released");
+            buttonFilterTransactions.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #455A64; -fx-border-width: 3px;");
+        }
+    }
+
+    private void setFilterStatus(String status){
+        filters.append("filterStatus", status);
+    }
+
     private void removeFilterStatus(){
         filters.remove("filterStatus");
 
     }
 
-    @FXML
-    private void setFilterBalance(){
-        
+    private void setFilterBalance(String balance){
+        filters.append("filterBalance", balance);
     }
 
-    @FXML
     private void removeFilterBalance(){
         filters.remove("filterBalance");
 
     }
 
-    @FXML
-    private void setFilterTransactions(){
-
+    private void setFilterTransactions(String transactions){
+        filters.append("filterTransactions", transactions);
     }
 
-    @FXML
     private void removeFilterTransactions(){
         filters.remove("filterTransactions");
 
@@ -102,19 +137,17 @@ public class Controller0 implements Initializable {
     /* Metodo para implementar la spec 35, nos abrira una vista donde veremos las fotografias en grande y nos saldra el desplegable */
     @FXML
     private void validateUser(){
-
+        System.out.println("Open tab validate user");
     }
 
 
     
-    /* El metodo de cargar perfiles requerira de una query,
-     * la query puede estar vacia, los carga todos, o puede
-     * ser un WHERE, que se añadira al SELECT * FROM users; en la api
-     */
+    /* El metodo de cargar perfiles requerira que se le especifique un filtro, por lo que se le pasara el JSONObject filters */
     public void getUsers() {
         vBoxList.getChildren().clear();
         loading.setVisible(true);
         JSONObject objJSON = new JSONObject("{}");
+        objJSON.put("filters", this.filters);
         UtilsHTTP.sendPOST(Main.protocol + "://" + Main.host + ":" + Main.port + "/api/get_profiles", objJSON.toString(),
                 (response) -> {
                     JSONObject objResponse = new JSONObject(response);
