@@ -32,7 +32,7 @@ public class ControllerValidation implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        
+
     }
 
     @FXML
@@ -43,10 +43,10 @@ public class ControllerValidation implements Initializable {
 
         UtilsHTTP.sendPOST(Main.protocol + "://" + Main.host + ":" + Main.port + "/api/get_profile", objJSON.toString(),
                 (response) -> {
-                    
+
                 });
     }
-    
+
     @FXML
     private void rejectedValidation() {
         JSONObject objJSON = new JSONObject("{}");
@@ -55,20 +55,22 @@ public class ControllerValidation implements Initializable {
 
         UtilsHTTP.sendPOST(Main.protocol + "://" + Main.host + ":" + Main.port + "/api/get_profile", objJSON.toString(),
                 (response) -> {
-                    
+
                 });
     }
-    
+
     private void chargeImages(String response) {
 
         JSONObject objResponse = new JSONObject(response);
 
         if (objResponse.getString("status").equals("OK")) {
-            JSONArray array = new JSONArray(objResponse.getString("message"));
+            System.out.println(objResponse.getJSONArray("message"));
+            JSONArray array = new JSONArray(objResponse.getJSONArray("message"));
             JSONObject jsonUser = array.getJSONObject(0);
 
             String reversKey = jsonUser.getString("revers");
             String anversKey = jsonUser.getString("anvers");
+
             byte[] decodedBytesAnvers = Base64.getDecoder().decode(reversKey);
             byte[] decodedBytesRevers = Base64.getDecoder().decode(anversKey);
 
@@ -90,8 +92,8 @@ public class ControllerValidation implements Initializable {
         objJSON.put("user_id", id);
 
         UtilsHTTP.sendPOST(Main.protocol + "://" + Main.host + ":" + Main.port + "/api/get_userDNI", objJSON.toString(),
-            (response) -> {
+                (response) -> {
                     chargeImages(response);
-            });
+                });
     }
 }
