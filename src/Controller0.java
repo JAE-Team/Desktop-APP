@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
@@ -7,19 +8,23 @@ import java.util.ResourceBundle;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class Controller0 implements Initializable {
 
@@ -44,6 +49,13 @@ public class Controller0 implements Initializable {
     @FXML
     private Button buttonValidateUser;
 
+    @FXML
+    private ChoiceBox choiceBoxStatus;
+    private String[] filtersOptions = {"All", "Not verified", "Waiting verification", "Verification Accepted", "Verification Rejected"};
+
+    @FXML
+    private TextField maxBalances, minBalances, maxTransactions, minTransactions;
+
     private static Controller0 instance;
 
     private JSONObject filters= new JSONObject("{}");
@@ -56,10 +68,16 @@ public class Controller0 implements Initializable {
         getUsers();
 
         buttonFilterState.setSelected(false);
-
         buttonFilterBalances.setSelected(false);
-
         buttonFilterTransactions.setSelected(false);
+
+        ChoiceBox choiceBoxStatus = new ChoiceBox<>();
+       
+        System.out.println(filtersOptions[0]);
+        System.out.println(filtersOptions[1]);
+        System.out.println(filtersOptions[2]);
+        choiceBoxStatus.getItems().addAll(filtersOptions);
+        choiceBoxStatus.setValue(filtersOptions[0]);
 
         instance=this;
     }
@@ -72,7 +90,6 @@ public class Controller0 implements Initializable {
     /* Cada uno de los 3 Botones de filtro tendra 2 metodos, uno para cuando se clica añadir un filtro, 
      * otro cuando se suelta para quitar el filtro, actuaran sobre el JSONObject filters
     */
-
 
     @FXML
     private void statesPressed(ActionEvent event) {
@@ -90,6 +107,9 @@ public class Controller0 implements Initializable {
         if (buttonFilterBalances.isSelected()) {
             System.out.println("Balances pressed");
             buttonFilterBalances.setStyle("-fx-background-color: #CFD8DC;");
+/*             String maxBalancesInput = maxBalances.getText();
+            String minBalancesInput = minBalances.getText();
+            setFilterBalance(minBalancesInput + ";" + maxBalancesInput); */
         } else {
             System.out.println("Balances released");
             buttonFilterBalances.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #455A64; -fx-border-width: 3px;");
@@ -101,6 +121,9 @@ public class Controller0 implements Initializable {
         if (buttonFilterTransactions.isSelected()) {
             System.out.println("Transactions pressed");
             buttonFilterTransactions.setStyle("-fx-background-color: #CFD8DC;");
+/*             String maxTransactionsInput = maxTransactions.getText();
+            String minTransactionsInput = minTransactions.getText();
+            setFilterTransactions(minTransactionsInput + ";" + maxTransactionsInput); */
         } else {
             System.out.println("Transactions released");
             buttonFilterTransactions.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #455A64; -fx-border-width: 3px;");
@@ -108,6 +131,7 @@ public class Controller0 implements Initializable {
     }
 
     private void setFilterStatus(String status){
+        removeFilterStatus();
         filters.append("filterStatus", status);
     }
 
@@ -117,6 +141,7 @@ public class Controller0 implements Initializable {
     }
 
     private void setFilterBalance(String balance){
+        removeFilterBalance();
         filters.append("filterBalance", balance);
     }
 
@@ -126,6 +151,7 @@ public class Controller0 implements Initializable {
     }
 
     private void setFilterTransactions(String transactions){
+        removeFilterTransactions();
         filters.append("filterTransactions", transactions);
     }
 
@@ -146,10 +172,108 @@ public class Controller0 implements Initializable {
         }
     }
 
+    private void openRangeDialog(){
+        try {
+            // Load the rangeDialog FXML file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("./assets/rangeDialog.fxml"));
+            Parent root = loader.load();
+            
+            // Create a new scene with the loaded FXML file
+            Scene scene = new Scene(root);
+            
+            // Create a new stage to display the scene
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            
+            // Show the stage
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    } 
 
+    /* Metodo que comprueba todos los campos y atualiza los filtros que enviaremos
+     * lo llama getUsers 
+     */
+    private void updateFilters(){
+        if (buttonFilterState.isSelected()) {
+            setFilterStatus(choiceBoxStatus.getValue().toString());
+        } else {
+            removeFilterStatus();
+        }
+
+        if (buttonFilterBalances.isSelected()) {
+            String maxBalancesInput = maxBalances.getText();
+            String minBalancesInput = minBalances.getText();
+
+            try {
+                double max = Double.parseDouble(maxBalancesInput);
+                double min = Double.parseDouble(minBalancesInput);
+            
+                if (max >= min) {
+                    setFilterTransactions(minBalancesInput + ";" + maxBalancesInput);
+                } else {
+                    UtilsAlerts.alertError("Error en el filtre de balanços", 
+                    "La quantitat maxima de balanços ha de ser major o igual que el valor mínim de transaccions");
+                }
+            } catch (NumberFormatException e) {
+                UtilsAlerts.alertError("Error en el filtre de balanços", 
+                "Un dels valors introduïts no és un número");
+            }
+
+            setFilterBalance(minBalancesInput + ";" + maxBalancesInput);
+        } else {
+            removeFilterBalance();
+        }
+
+        if (buttonFilterTransactions.isSelected()) {
+            String maxTransactionsInput = maxTransactions.getText();
+            String minTransactionsInput = minTransactions.getText();
+
+            try {
+                double max = Double.parseDouble(maxTransactionsInput);
+                double min = Double.parseDouble(minTransactionsInput);
+            
+                if (max >= min) {
+                    setFilterTransactions(minTransactionsInput + ";" + maxTransactionsInput);
+                } else {
+                    UtilsAlerts.alertError("Error en el filtre de transaccions", 
+                    "El valor màxim de transaccions ha de ser major o igual que el valor mínim de transaccions");
+                }
+            } catch (NumberFormatException e) {
+                UtilsAlerts.alertError("Error en el filtre de transaccions", 
+                "Un dels valors introduïts no és un número");
+            }
+
+            
+        } else {
+            removeFilterTransactions();
+        }
+
+        System.out.println("Filters: " + filters.toString());
+    }
+
+    @FXML
+    private void resetFilters(){
+        buttonFilterState.setSelected(false);
+        buttonFilterBalances.setSelected(false);
+        buttonFilterTransactions.setSelected(false);
+        buttonFilterState.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #455A64; -fx-border-width: 3px; -fx-padding: -5;");
+        buttonFilterBalances.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #455A64; -fx-border-width: 3px;");
+        buttonFilterTransactions.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #455A64; -fx-border-width: 3px;");
+        removeFilterStatus();
+        removeFilterBalance();
+        removeFilterTransactions();
+        maxBalances.setText("");
+        minBalances.setText("");
+        maxTransactions.setText("");
+        minTransactions.setText("");
+    }
     
     /* El metodo de cargar perfiles requerira que se le especifique un filtro, por lo que se le pasara el JSONObject filters */
+    @FXML
     public void getUsers() {
+        updateFilters();
         vBoxList.getChildren().clear();
         loading.setVisible(true);
         JSONObject objJSON = new JSONObject("{}");
