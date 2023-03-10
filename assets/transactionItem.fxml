@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="80.0" prefWidth="717.0" style="-fx-background-color: darkgrey;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ControllerTransaction">
+<AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="80.0" prefWidth="770.0" style="-fx-background-color: darkgrey;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ControllerTransaction">
    <children>
-      <GridPane layoutX="5.0" layoutY="5.0" prefHeight="77.0" prefWidth="717.0" style="-fx-background-color: lightgray;" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="-3.0" AnchorPane.topAnchor="0.0">
+      <GridPane layoutX="5.0" layoutY="5.0" prefHeight="80.0" prefWidth="775.0" style="-fx-background-color: lightgray;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="-3.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="125.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="125.0" />
@@ -24,33 +24,33 @@
           <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label fx:id="name" minWidth="50.0" prefHeight="26.0" prefWidth="50.0" text="Payer">
+            <Label fx:id="payerLabel" minWidth="50.0" prefHeight="26.0" prefWidth="50.0" text="PAYER">
                <font>
-                  <Font size="14.0" />
+                  <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Label fx:id="name1" minWidth="52.0" prefHeight="26.0" prefWidth="65.0" text="Receiver" GridPane.columnIndex="1">
+            <Label fx:id="receiverLabel" minWidth="52.0" prefHeight="26.0" prefWidth="65.0" text="RECEIVER" GridPane.columnIndex="1">
                <font>
-                  <Font size="14.0" />
+                  <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Label fx:id="name11" minWidth="52.0" prefHeight="25.0" prefWidth="75.0" text="Ammount" GridPane.columnIndex="3">
+            <Label fx:id="amountLabel" minWidth="52.0" prefHeight="25.0" prefWidth="75.0" text="AMOUNT" GridPane.columnIndex="3">
                <font>
-                  <Font size="14.0" />
+                  <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Label fx:id="name111" minWidth="40.0" prefHeight="26.0" prefWidth="40.0" text="Time" GridPane.columnIndex="4">
+            <Label fx:id="timeLabel" minWidth="40.0" prefHeight="26.0" prefWidth="40.0" text="TIME" GridPane.columnIndex="4">
                <font>
-                  <Font size="14.0" />
+                  <Font name="System Bold" size="14.0" />
                </font>
             </Label>
             <Label fx:id="fieldPayer" minWidth="125.0" prefWidth="125.0" text="Name" wrapText="true" GridPane.rowIndex="1" />
             <Label fx:id="fieldReceiver" minWidth="125.0" prefWidth="125.0" text="Name" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label fx:id="fieldAmount" minWidth="50.0" prefWidth="50.0" text="100" GridPane.columnIndex="3" GridPane.rowIndex="1" />
             <Label fx:id="fieldDate" minWidth="200.0" prefWidth="200.0" text="10:30:33" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-            <Label fx:id="statusLabel" minWidth="52.0" prefHeight="26.0" prefWidth="65.0" text="Status" GridPane.columnIndex="2">
+            <Label fx:id="statusLabel" minWidth="52.0" prefHeight="26.0" prefWidth="65.0" text="STATUS" GridPane.columnIndex="2">
                <font>
-                  <Font size="14.0" />
+                  <Font name="System Bold" size="14.0" />
                </font>
             </Label>
             <Label fx:id="fieldStatus" minWidth="125.0" prefWidth="125.0" text="Status" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />

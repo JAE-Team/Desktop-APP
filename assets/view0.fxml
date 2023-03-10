@@ -22,7 +22,7 @@
             <Label fx:id="txtError" text="ERROR" textFill="RED" visible="false" />
          </children>
       </HBox>
-      <ScrollPane fitToWidth="true" hbarPolicy="NEVER" layoutY="109.0" prefHeight="340.0" prefWidth="242.0" AnchorPane.bottomAnchor="51.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="109.0">
+      <ScrollPane fitToWidth="true" hbarPolicy="NEVER" layoutY="65.0" prefHeight="384.0" prefWidth="242.0" AnchorPane.bottomAnchor="51.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="65.0">
          <content>
             <VBox fx:id="vBoxList" />
          </content>
@@ -39,9 +39,9 @@
                </graphic></Button>
          </children>
       </HBox>
-      <Label layoutX="252.0" layoutY="58.0" text="User details" AnchorPane.leftAnchor="252.0" AnchorPane.topAnchor="58.0">
+      <Label layoutX="252.0" layoutY="58.0" text="USER DETAILS" AnchorPane.leftAnchor="252.0" AnchorPane.topAnchor="58.0">
          <font>
-            <Font size="20.0" />
+            <Font name="System Bold" size="20.0" />
          </font>
       </Label>
       <GridPane layoutX="253.0" layoutY="101.0" prefHeight="120.0" prefWidth="320.0" AnchorPane.leftAnchor="253.0" AnchorPane.topAnchor="101.0">
@@ -73,7 +73,7 @@
          </children>
       </GridPane>
       <ProgressIndicator fx:id="loading" layoutX="530.0" layoutY="20.0" visible="false" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="20.0" />
-      <ScrollPane layoutX="252.0" layoutY="221.0" maxHeight="400.0" maxWidth="500.0" prefHeight="217.0" prefWidth="440.0">
+      <ScrollPane layoutX="252.0" layoutY="267.0" maxHeight="400.0" maxWidth="500.0" prefHeight="171.0" prefWidth="440.0" AnchorPane.bottomAnchor="62.0" AnchorPane.leftAnchor="252.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="267.0">
          <content>
             <VBox fx:id="vBoxTransactions" />
          </content>
@@ -96,6 +96,11 @@
             <ToggleButton fx:id="buttonFilterTransactions" mnemonicParsing="false" onAction="#transactionsPressed" prefHeight="32.0" prefWidth="159.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #455A64; -fx-border-width: 3px;" text="Filter Transactions" GridPane.columnIndex="2" />
          </children>
       </GridPane>
-      <Button layoutX="579.0" layoutY="93.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#validateUser" prefHeight="50.0" prefWidth="100.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #455A64; -fx-border-width: 3px;" text=" Validate User" />
+      <Button layoutX="553.0" layoutY="95.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#validateUser" prefHeight="53.0" prefWidth="118.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #455A64; -fx-border-width: 3px;" text=" Validate User" />
+      <Label layoutX="252.0" layoutY="235.0" text="USER TRANSACTIONS">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

@@ -1,3 +1,7 @@
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
@@ -29,7 +33,8 @@ public class ControllerTransaction{
         fieldAmount.setText(amount);
     }
 
-    public void setDate(String date){
-        fieldDate.setText(date);
+    public void setDate(String date) {
+        String dateFormated = date.replace("T", " ").replace(".000Z","");
+        fieldDate.setText(dateFormated);
     }
 }

@@ -53,7 +53,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        final int windowWidth = 1000;
+        final int windowWidth = 1050;
         final int windowHeight = 800;
 
         UtilsViews.parentContainer.setStyle("-fx-font: 14 arial;");
@@ -62,6 +62,7 @@ public class Main extends Application {
         Scene scene = new Scene(UtilsViews.parentContainer);
         
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.onCloseRequestProperty(); // Call close method when closing window
         stage.setTitle("JavaFX - NodeJS");
         stage.setMinWidth(windowWidth);
