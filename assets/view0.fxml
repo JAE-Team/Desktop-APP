@@ -24,7 +24,7 @@
             <Label fx:id="txtError" text="ERROR" textFill="RED" visible="false" />
          </children>
       </HBox>
-      <ScrollPane fitToWidth="true" hbarPolicy="NEVER" layoutY="198.0" prefHeight="280.0" prefWidth="240.0" AnchorPane.bottomAnchor="51.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="198.0">
+      <ScrollPane fitToWidth="true" hbarPolicy="NEVER" layoutX="14.0" layoutY="258.0" prefHeight="278.0" prefWidth="240.0" AnchorPane.bottomAnchor="58.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="250.0">
          <content>
             <VBox fx:id="vBoxList" />
          </content>
@@ -41,15 +41,15 @@
                </graphic></Button>
          </children>
       </HBox>
-      <Label layoutX="260.0" layoutY="58.0" text="USER DETAILS" AnchorPane.leftAnchor="260.0" AnchorPane.topAnchor="58.0">
+      <Label layoutX="313.0" layoutY="57.0" text="USER DETAILS" AnchorPane.leftAnchor="313.0" AnchorPane.topAnchor="57.0">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <GridPane layoutX="260.0" layoutY="103.0" prefHeight="120.0" prefWidth="320.0" AnchorPane.leftAnchor="260.0" AnchorPane.topAnchor="103.0">
+      <GridPane layoutX="313.0" layoutY="102.0" prefHeight="120.0" prefWidth="300.0" AnchorPane.leftAnchor="313.0" AnchorPane.topAnchor="102.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="115.20001220703125" minWidth="10.0" prefWidth="60.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="213.5999755859375" minWidth="10.0" prefWidth="200.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -75,38 +75,40 @@
          </children>
       </GridPane>
       <ProgressIndicator fx:id="loading" layoutX="530.0" layoutY="20.0" visible="false" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="20.0" />
-      <ScrollPane layoutX="252.0" layoutY="267.0" maxHeight="400.0" maxWidth="500.0" prefHeight="171.0" prefWidth="440.0" AnchorPane.bottomAnchor="62.0" AnchorPane.leftAnchor="252.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="267.0">
+      <ScrollPane layoutX="268.0" layoutY="267.0" maxHeight="400.0" maxWidth="500.0" prefHeight="200.0" prefWidth="431.0" AnchorPane.bottomAnchor="62.0" AnchorPane.leftAnchor="268.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="267.0">
          <content>
             <VBox fx:id="vBoxTransactions" />
          </content>
       </ScrollPane>
-      <GridPane hgap="5.0" layoutX="10.0" layoutY="13.0" prefHeight="120.0" prefWidth="240.0" vgap="5.0">
+      <GridPane hgap="6.0" layoutX="14.0" layoutY="12.0" prefHeight="180.0" prefWidth="250.0" vgap="4.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="120.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="123.66668701171878" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="161.59998168945313" minWidth="10.0" prefWidth="110.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="168.80001831054688" minWidth="10.0" prefWidth="140.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <padding>
             <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
          </padding>
          <children>
-            <ToggleButton fx:id="buttonFilterState" mnemonicParsing="false" onAction="#statesPressed" prefHeight="32.0" prefWidth="183.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #455A64; -fx-border-width: 3px;" text="Filter by State" GridPane.columnIndex="0">
+            <ToggleButton fx:id="buttonFilterState" contentDisplay="CENTER" mnemonicParsing="false" onAction="#statesPressed" prefHeight="55.0" prefWidth="191.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #455A64; -fx-border-width: 3px;" text="Filter by State" wrapText="true" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <font>
-                  <Font name="System Bold" size="11.0" />
-               </font></ToggleButton>
-            <ToggleButton fx:id="buttonFilterBalances" mnemonicParsing="false" onAction="#balancesPressed" prefHeight="32.0" prefWidth="182.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #455A64; -fx-border-width: 3px;" text="Filter Balances" GridPane.rowIndex="1">
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </ToggleButton>
+            <ToggleButton fx:id="buttonFilterBalances" contentDisplay="CENTER" mnemonicParsing="false" onAction="#balancesPressed" prefHeight="88.0" prefWidth="179.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #455A64; -fx-border-width: 3px;" text="Filter Balances" wrapText="true" GridPane.rowIndex="1">
                <font>
-                  <Font name="System Bold" size="11.0" />
-               </font></ToggleButton>
-            <ToggleButton fx:id="buttonFilterTransactions" mnemonicParsing="false" onAction="#transactionsPressed" prefHeight="32.0" prefWidth="172.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #455A64; -fx-border-width: 3px;" text="Filter Transactions" GridPane.rowIndex="2">
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </ToggleButton>
+            <ToggleButton fx:id="buttonFilterTransactions" contentDisplay="CENTER" mnemonicParsing="false" onAction="#transactionsPressed" prefHeight="81.0" prefWidth="157.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #455A64; -fx-border-width: 3px;" text="Filter Transactions" wrapText="true" GridPane.rowIndex="2">
                <font>
-                  <Font name="System Bold" size="11.0" />
-               </font></ToggleButton>
-            <ChoiceBox fx:id="choiceBoxStatus" prefWidth="150.0" GridPane.columnIndex="1" />
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </ToggleButton>
             <GridPane hgap="2.0" vgap="2.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -139,15 +141,16 @@
                   <Label text="Min" />
                </children>
             </GridPane>
+            <ChoiceBox fx:id="choiceBoxStatus" onMouseClicked="#choiceBoxAction" prefHeight="45.0" prefWidth="120.0" GridPane.columnIndex="1" />
          </children>
       </GridPane>
-      <Button fx:id="buttonValidateUser" layoutX="553.0" layoutY="95.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMousePressed="#validateUser" prefHeight="53.0" prefWidth="118.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #455A64; -fx-border-width: 3px;" text=" Validate User" />
-      <Label layoutX="252.0" layoutY="235.0" text="USER TRANSACTIONS">
+      <Button fx:id="buttonValidateUser" layoutX="563.0" layoutY="30.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMousePressed="#validateUser" prefHeight="53.0" prefWidth="118.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #455A64; -fx-border-width: 3px;" text=" Validate User" wrapText="true" />
+      <Label layoutX="313.0" layoutY="234.0" text="USER TRANSACTIONS">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <Button fx:id="buttonSearch" layoutX="140.0" layoutY="143.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#getUsers" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #455A64; -fx-border-width: 3px;" text="Search Users" />
-      <Button fx:id="buttonResetFilters" layoutX="20.0" layoutY="143.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#resetFilters" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #455A64; -fx-border-width: 3px;" text="Reset Filters" />
+      <Button fx:id="buttonSearch" layoutX="139.0" layoutY="203.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMousePressed="#getUsers" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #455A64; -fx-border-width: 3px;" text="Search Users" wrapText="true" />
+      <Button fx:id="buttonResetFilters" layoutX="20.0" layoutY="203.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMousePressed="#resetFilters" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #455A64; -fx-border-width: 3px;" text="Reset Filters" wrapText="true" />
    </children>
 </AnchorPane>

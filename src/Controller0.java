@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.net.URL;
+import javafx.util.Duration;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -8,12 +9,15 @@ import java.util.ResourceBundle;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import javafx.animation.PauseTransition;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Bounds;
+import javafx.geometry.Point2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -22,6 +26,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -47,11 +52,18 @@ public class Controller0 implements Initializable {
     private ToggleButton buttonFilterState, buttonFilterBalances, buttonFilterTransactions;
 
     @FXML
-    private Button buttonValidateUser;
+    private Button buttonValidateUser, buttonResetFilters, buttonSearch;
+
+    private Tooltip tooltipValidate = new Tooltip("Obrir la vista per validar el compte d'un usuari\na partir de les fotos del DNI que ha pujat"),
+    tooltipReset = new Tooltip("Reiniciar tots els filtres"),
+    tooltipSearch = new Tooltip("Fer una cerca d'usuaris amb els filtres seleccionats"),
+    tooltipState = new Tooltip("Filtrar segons l'estat de verifiació del compte l'usuari"),
+    tooltipBalance = new Tooltip("Filtrar els usuaris que tinguin un Balanç\nde moneda social entre els dos valors especificats"),
+    tooltipTransactions = new Tooltip("Filtrar els usuaris que tinguin\nuna quantitat de transaccions compresa\nentre el maxim i el minim de transaccions");
 
     @FXML
-    private ChoiceBox choiceBoxStatus;
-    private String[] filtersOptions = {"All", "Not verified", "Waiting verification", "Verification Accepted", "Verification Rejected"};
+    private ChoiceBox<String> choiceBoxStatus;
+    private String[] filtersOptions = {"All", "Not\nverified", "Waiting\nVerification", "Verification\nAccepted", "Verification\nRejected"};
 
     @FXML
     private TextField maxBalances, minBalances, maxTransactions, minTransactions;
@@ -70,21 +82,22 @@ public class Controller0 implements Initializable {
         buttonFilterState.setSelected(false);
         buttonFilterBalances.setSelected(false);
         buttonFilterTransactions.setSelected(false);
-
-        ChoiceBox choiceBoxStatus = new ChoiceBox<>();
        
-        System.out.println(filtersOptions[0]);
-        System.out.println(filtersOptions[1]);
-        System.out.println(filtersOptions[2]);
         choiceBoxStatus.getItems().addAll(filtersOptions);
         choiceBoxStatus.setValue(filtersOptions[0]);
+        choiceBoxStatus.setStyle("-fx-font-size: 13px;");
 
+        setAllTooltips();
         instance=this;
     }
 
     @FXML
     private void setView1() {
         UtilsViews.setViewAnimating("View0");
+    }
+
+    @FXML
+    private void choiceBoxAction(){
     }
 
     /* Cada uno de los 3 Botones de filtro tendra 2 metodos, uno para cuando se clica añadir un filtro, 
@@ -94,10 +107,8 @@ public class Controller0 implements Initializable {
     @FXML
     private void statesPressed(ActionEvent event) {
         if (buttonFilterState.isSelected()) {
-            System.out.println("States pressed");
             buttonFilterState.setStyle("-fx-background-color: #CFD8DC;");
         } else {
-            System.out.println("States released");
             buttonFilterState.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #455A64; -fx-border-width: 3px; -fx-padding: -5;");
         }
     }
@@ -105,13 +116,11 @@ public class Controller0 implements Initializable {
     @FXML
     private void balancesPressed(ActionEvent event) {
         if (buttonFilterBalances.isSelected()) {
-            System.out.println("Balances pressed");
             buttonFilterBalances.setStyle("-fx-background-color: #CFD8DC;");
 /*             String maxBalancesInput = maxBalances.getText();
             String minBalancesInput = minBalances.getText();
             setFilterBalance(minBalancesInput + ";" + maxBalancesInput); */
         } else {
-            System.out.println("Balances released");
             buttonFilterBalances.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #455A64; -fx-border-width: 3px;");
         }
     }
@@ -119,13 +128,11 @@ public class Controller0 implements Initializable {
     @FXML
     private void transactionsPressed(ActionEvent event) {
         if (buttonFilterTransactions.isSelected()) {
-            System.out.println("Transactions pressed");
             buttonFilterTransactions.setStyle("-fx-background-color: #CFD8DC;");
 /*             String maxTransactionsInput = maxTransactions.getText();
             String minTransactionsInput = minTransactions.getText();
             setFilterTransactions(minTransactionsInput + ";" + maxTransactionsInput); */
         } else {
-            System.out.println("Transactions released");
             buttonFilterTransactions.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #455A64; -fx-border-width: 3px;");
         }
     }
@@ -193,11 +200,12 @@ public class Controller0 implements Initializable {
     } 
 
     /* Metodo que comprueba todos los campos y atualiza los filtros que enviaremos
-     * lo llama getUsers 
      */
-    private void updateFilters(){
+    private void updateFilters() throws Exception{
         if (buttonFilterState.isSelected()) {
-            setFilterStatus(choiceBoxStatus.getValue().toString());
+            String filterStatus = choiceBoxStatus.getValue().toString().replace("\n", " ");
+            setFilterStatus(filterStatus);
+
         } else {
             removeFilterStatus();
         }
@@ -211,17 +219,25 @@ public class Controller0 implements Initializable {
                 double min = Double.parseDouble(minBalancesInput);
             
                 if (max >= min) {
-                    setFilterTransactions(minBalancesInput + ";" + maxBalancesInput);
+                    setFilterBalance(minBalancesInput + ";" + maxBalancesInput);
                 } else {
                     UtilsAlerts.alertError("Error en el filtre de balanços", 
                     "La quantitat maxima de balanços ha de ser major o igual que el valor mínim de transaccions");
+                    throw new Exception("Filter Balance Error");
                 }
             } catch (NumberFormatException e) {
-                UtilsAlerts.alertError("Error en el filtre de balanços", 
-                "Un dels valors introduïts no és un número");
+                if(maxBalancesInput.contains(",") || minBalancesInput.contains(",")){
+                    UtilsAlerts.alertError("Error en el filtre de balanços", 
+                    "El separador the que ser una coma");
+                }else{
+                    UtilsAlerts.alertError("Error en el filtre de balanços", 
+                    "Un dels valors introduïts no és un número");
+                }
+
+                throw new Exception("Filter Balance Error");
             }
 
-            setFilterBalance(minBalancesInput + ";" + maxBalancesInput);
+
         } else {
             removeFilterBalance();
         }
@@ -231,28 +247,36 @@ public class Controller0 implements Initializable {
             String minTransactionsInput = minTransactions.getText();
 
             try {
-                double max = Double.parseDouble(maxTransactionsInput);
-                double min = Double.parseDouble(minTransactionsInput);
+                int max = Integer.parseInt(maxTransactionsInput);
+                int min = Integer.parseInt(minTransactionsInput);
             
                 if (max >= min) {
                     setFilterTransactions(minTransactionsInput + ";" + maxTransactionsInput);
                 } else {
                     UtilsAlerts.alertError("Error en el filtre de transaccions", 
                     "El valor màxim de transaccions ha de ser major o igual que el valor mínim de transaccions");
+                    throw new Exception("Filter Transactions Error");
                 }
             } catch (NumberFormatException e) {
-                UtilsAlerts.alertError("Error en el filtre de transaccions", 
-                "Un dels valors introduïts no és un número");
+                if (maxTransactionsInput.contains(",") || maxTransactionsInput.contains(".") 
+                || minTransactionsInput.contains(",") || minTransactionsInput.contains(".")) {
+                    UtilsAlerts.alertError("Error en el filtre de balanços", 
+                            "El valor no pot ser decimal");
+                } else{
+                    UtilsAlerts.alertError("Error en el filtre de transaccions", 
+                    "Un dels valors introduïts no és un número");
+                }
+
+                throw new Exception("Filter Transactions Error");
             }
 
             
         } else {
             removeFilterTransactions();
         }
-
-        System.out.println("Filters: " + filters.toString());
     }
 
+    /* Para resetear todos los filtros */
     @FXML
     private void resetFilters(){
         buttonFilterState.setSelected(false);
@@ -268,35 +292,47 @@ public class Controller0 implements Initializable {
         minBalances.setText("");
         maxTransactions.setText("");
         minTransactions.setText("");
+        choiceBoxStatus.setValue(filtersOptions[0]);
     }
     
-    /* El metodo de cargar perfiles requerira que se le especifique un filtro, por lo que se le pasara el JSONObject filters */
+    /* El metodo de cargar perfiles requerira que se le especifique un filtro, 
+    por lo que se le pasara el JSONObject filters 
+    Cuando se apriete el boton, el metodo updateFilters revisara  los botones y campos para
+    establecer los filtros
+    
+    Si algun dato de los filtros de transacciones o balances esta mal, 
+    saltara el error y no continuara con el envio del post*/
     @FXML
     public void getUsers() {
-        updateFilters();
-        vBoxList.getChildren().clear();
-        loading.setVisible(true);
-        JSONObject objJSON = new JSONObject("{}");
-        objJSON.put("filters", this.filters);
-        UtilsHTTP.sendPOST(Main.protocol + "://" + Main.host + ":" + Main.port + "/api/get_profiles", objJSON.toString(),
-                (response) -> {
-                    JSONObject objResponse = new JSONObject(response);
-                    //JSONArray JSONlist = objResponse.get("");
-                    
-                    JSONArray jsonArray = objResponse.getJSONArray("message");
-                    // Assuming you already have a JSONArray object called jsonArray
-                    int length = jsonArray.length();
-                    for (int i = 0; i < length; i++) {
-                        JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        jsonObject.remove("anvers");
-                        jsonObject.remove("revers");
-                    }
-
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        addPersona(jsonArray.getJSONObject(i));
-                    }
-                    loading.setVisible(false);
-                });
+        try{
+            updateFilters();
+            vBoxList.getChildren().clear();
+            loading.setVisible(true);
+            JSONObject objJSON = new JSONObject("{}");
+            objJSON.put("filters", this.filters);
+            System.out.println("Post enviado:" +objJSON.toString());
+            UtilsHTTP.sendPOST(Main.protocol + "://" + Main.host + ":" + Main.port + "/api/get_profiles", objJSON.toString(),
+                    (response) -> {
+                        JSONObject objResponse = new JSONObject(response);
+                        //JSONArray JSONlist = objResponse.get("");
+                        
+                        JSONArray jsonArray = objResponse.getJSONArray("message");
+                        // Assuming you already have a JSONArray object called jsonArray
+                        int length = jsonArray.length();
+                        for (int i = 0; i < length; i++) {
+                            JSONObject jsonObject = jsonArray.getJSONObject(i);
+                            jsonObject.remove("anvers");
+                            jsonObject.remove("revers");
+                        }
+    
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            addPersona(jsonArray.getJSONObject(i));
+                        }
+                        loading.setVisible(false);
+                    });
+        } catch (Exception e) {
+            return;
+        }
     }
 
     private void addPersona(JSONObject persona){
@@ -315,11 +351,9 @@ public class Controller0 implements Initializable {
         }catch(Exception e){
             e.printStackTrace();
         }
-        
-        // Add template to the list
     }
 
-    /* Añade una unica transaccion, este metodo sera llamado al clicar 
+    /* Carga una unica transaccion, este metodo sera llamado al clicar 
     el ItemList del usuario tantas veces como transacciones tenga este
      */
     public void addTransaction(JSONObject transactionObject){
@@ -351,19 +385,6 @@ public class Controller0 implements Initializable {
             e.printStackTrace();
         }
     }
-
-    public static String generateRandomString() {
-        int length = new Random().nextInt(26) + 5; // Random length between 5 and 30
-        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < length; i++) {
-            int index = new Random().nextInt(characters.length());
-            sb.append(characters.charAt(index));
-        }
-        return sb.toString();
-    }
-
-    /* Experimento, hay que quitar */
 
     @FXML
     private void setView3() {
@@ -402,4 +423,17 @@ public class Controller0 implements Initializable {
         vBoxTransactions.getChildren().clear();
     }
 
+    /* 
+     * Codigo para implementar que cuando se deja sobre el cursor sobre un boton aparezca
+     * un texto explicativo que nos de mas información, los tooltips.
+     */
+
+    private void setAllTooltips(){
+        UtilsTooltip.setTooltipDelay(buttonFilterState, tooltipState, 0.5);
+        UtilsTooltip.setTooltipDelay(buttonFilterBalances, tooltipBalance, 0.5);
+        UtilsTooltip.setTooltipDelay(buttonFilterTransactions, tooltipTransactions, 0.5);
+        UtilsTooltip.setTooltipDelay(buttonResetFilters, tooltipReset, 0.5);
+        UtilsTooltip.setTooltipDelay(buttonSearch, tooltipSearch, 0.5);
+        UtilsTooltip.setTooltipDelay(buttonValidateUser, tooltipValidate, 0.5);
+    }
 }
