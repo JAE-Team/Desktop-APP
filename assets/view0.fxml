@@ -17,7 +17,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchor" minHeight="500.0" minWidth="700.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller0">
+<AnchorPane fx:id="anchor" minHeight="500.0" minWidth="700.0" stylesheets="@styleDesktop.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller0" styleClass="anchor-style">
    <children>
       <HBox alignment="CENTER" layoutX="20.0" layoutY="460.0" prefWidth="100.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="30.0">
          <children>
@@ -31,11 +31,11 @@
       </ScrollPane>
       <HBox alignment="CENTER" layoutX="128.0" layoutY="447.0" maxWidth="1.7976931348623157E308" prefHeight="53.0" prefWidth="493.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <Button disable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: #FFFFFF; -fx-border-color: #455A64; -fx-border-width: 3px;" text="List" HBox.hgrow="ALWAYS">
+            <Button disable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="List" HBox.hgrow="ALWAYS">
                <graphic>
                   <SVGPath content="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm-3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" scaleX="2.0" scaleY="2.0" scaleZ="2.0" translateX="-8.0" />
                </graphic></Button>
-            <Button disable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#setView3" style="-fx-background-color: #FFFFFF; -fx-border-color: #455A64; -fx-border-width: 3px;" text="Add" HBox.hgrow="ALWAYS">
+            <Button disable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#setView3" text="Add" HBox.hgrow="ALWAYS">
                <graphic>
                   <SVGPath content="M2.5 0c-.166 0-.33.016-.487.048l.194.98A1.51 1.51 0 0 1 2.5 1h.458V0H2.5zm2.292 0h-.917v1h.917V0zm1.833 0h-.917v1h.917V0zm1.833 0h-.916v1h.916V0zm1.834 0h-.917v1h.917V0zm1.833 0h-.917v1h.917V0zM13.5 0h-.458v1h.458c.1 0 .199.01.293.029l.194-.981A2.51 2.51 0 0 0 13.5 0zm2.079 1.11a2.511 2.511 0 0 0-.69-.689l-.556.831c.164.11.305.251.415.415l.83-.556zM1.11.421a2.511 2.511 0 0 0-.689.69l.831.556c.11-.164.251-.305.415-.415L1.11.422zM16 2.5c0-.166-.016-.33-.048-.487l-.98.194c.018.094.028.192.028.293v.458h1V2.5zM.048 2.013A2.51 2.51 0 0 0 0 2.5v.458h1V2.5c0-.1.01-.199.029-.293l-.981-.194zM0 3.875v.917h1v-.917H0zm16 .917v-.917h-1v.917h1zM0 5.708v.917h1v-.917H0zm16 .917v-.917h-1v.917h1zM0 7.542v.916h1v-.916H0zm15 .916h1v-.916h-1v.916zM0 9.375v.917h1v-.917H0zm16 .917v-.917h-1v.917h1zm-16 .916v.917h1v-.917H0zm16 .917v-.917h-1v.917h1zm-16 .917v.458c0 .166.016.33.048.487l.98-.194A1.51 1.51 0 0 1 1 13.5v-.458H0zm16 .458v-.458h-1v.458c0 .1-.01.199-.029.293l.981.194c.032-.158.048-.32.048-.487zM.421 14.89c.183.272.417.506.69.689l.556-.831a1.51 1.51 0 0 1-.415-.415l-.83.556zm14.469.689c.272-.183.506-.417.689-.69l-.831-.556c-.11.164-.251.305-.415.415l.556.83zm-12.877.373c.158.032.32.048.487.048h.458v-1H2.5c-.1 0-.199-.01-.293-.029l-.194.981zM13.5 16c.166 0 .33-.016.487-.048l-.194-.98A1.51 1.51 0 0 1 13.5 15h-.458v1h.458zm-9.625 0h.917v-1h-.917v1zm1.833 0h.917v-1h-.917v1zm1.834-1v1h.916v-1h-.916zm1.833 1h.917v-1h-.917v1zm1.833 0h.917v-1h-.917v1zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" scaleX="2.0" scaleY="2.0" scaleZ="2.0" translateX="-8.0" />
                </graphic></Button>
@@ -94,17 +94,17 @@
             <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
          </padding>
          <children>
-            <ToggleButton fx:id="buttonFilterState" contentDisplay="CENTER" mnemonicParsing="false" onAction="#statesPressed" prefHeight="55.0" prefWidth="191.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #455A64; -fx-border-width: 3px;" text="Filter by State" wrapText="true" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <ToggleButton fx:id="buttonFilterState" contentDisplay="CENTER" mnemonicParsing="false" onAction="#statesPressed" prefHeight="55.0" prefWidth="191.0" text="Filter by State" wrapText="true" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
             </ToggleButton>
-            <ToggleButton fx:id="buttonFilterBalances" contentDisplay="CENTER" mnemonicParsing="false" onAction="#balancesPressed" prefHeight="88.0" prefWidth="179.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #455A64; -fx-border-width: 3px;" text="Filter Balances" wrapText="true" GridPane.rowIndex="1">
+            <ToggleButton fx:id="buttonFilterBalances" contentDisplay="CENTER" mnemonicParsing="false" onAction="#balancesPressed" prefHeight="88.0" prefWidth="179.0" text="Filter Balances" wrapText="true" GridPane.rowIndex="1">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
             </ToggleButton>
-            <ToggleButton fx:id="buttonFilterTransactions" contentDisplay="CENTER" mnemonicParsing="false" onAction="#transactionsPressed" prefHeight="81.0" prefWidth="157.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #455A64; -fx-border-width: 3px;" text="Filter Transactions" wrapText="true" GridPane.rowIndex="2">
+            <ToggleButton fx:id="buttonFilterTransactions" contentDisplay="CENTER" mnemonicParsing="false" onAction="#transactionsPressed" prefHeight="81.0" prefWidth="157.0" text="Filter Transactions" wrapText="true" GridPane.rowIndex="2">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
@@ -144,13 +144,13 @@
             <ChoiceBox fx:id="choiceBoxStatus" onMouseClicked="#choiceBoxAction" prefHeight="45.0" prefWidth="120.0" GridPane.columnIndex="1" />
          </children>
       </GridPane>
-      <Button fx:id="buttonValidateUser" layoutX="563.0" layoutY="30.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMousePressed="#validateUser" prefHeight="53.0" prefWidth="118.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #455A64; -fx-border-width: 3px;" text=" Validate User" wrapText="true" />
+      <Button fx:id="buttonValidateUser" layoutX="563.0" layoutY="30.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMousePressed="#validateUser" prefHeight="53.0" prefWidth="118.0" text=" Validate User" wrapText="true" />
       <Label layoutX="313.0" layoutY="234.0" text="USER TRANSACTIONS">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <Button fx:id="buttonSearch" layoutX="139.0" layoutY="203.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMousePressed="#getUsers" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #455A64; -fx-border-width: 3px;" text="Search Users" wrapText="true" />
-      <Button fx:id="buttonResetFilters" layoutX="20.0" layoutY="203.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMousePressed="#resetFilters" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #455A64; -fx-border-width: 3px;" text="Reset Filters" wrapText="true" />
+      <Button fx:id="buttonSearch" layoutX="139.0" layoutY="203.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMousePressed="#getUsers" prefHeight="30.0" prefWidth="100.0" text="Search Users" wrapText="true" />
+      <Button fx:id="buttonResetFilters" layoutX="20.0" layoutY="203.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMousePressed="#resetFilters" prefHeight="30.0" prefWidth="100.0" text="Reset Filters" wrapText="true" />
    </children>
 </AnchorPane>

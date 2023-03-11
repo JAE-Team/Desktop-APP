@@ -54,12 +54,12 @@ public class Controller0 implements Initializable {
     @FXML
     private Button buttonValidateUser, buttonResetFilters, buttonSearch;
 
-    private Tooltip tooltipValidate = new Tooltip("Obrir la vista per validar el compte d'un usuari\na partir de les fotos del DNI que ha pujat"),
+    private Tooltip tooltipValidate = new Tooltip("Obrir la vista per validar el compte d'un usuari \na partir de les fotos del DNI que ha pujat"),
     tooltipReset = new Tooltip("Reiniciar tots els filtres"),
     tooltipSearch = new Tooltip("Fer una cerca d'usuaris amb els filtres seleccionats"),
-    tooltipState = new Tooltip("Filtrar segons l'estat de verifiació del compte l'usuari"),
-    tooltipBalance = new Tooltip("Filtrar els usuaris que tinguin un Balanç\nde moneda social entre els dos valors especificats"),
-    tooltipTransactions = new Tooltip("Filtrar els usuaris que tinguin\nuna quantitat de transaccions compresa\nentre el maxim i el minim de transaccions");
+    tooltipState = new Tooltip("Filtrar segons l'estat de verificació del compte l'usuari"),
+    tooltipBalance = new Tooltip("Filtrar els usuaris que tinguin un Balanç \nde moneda social entre els dos valors especificats"),
+    tooltipTransactions = new Tooltip("Filtrar els usuaris que tinguin \nuna quantitat de transaccions compresa \nentre el maxim i el minim de transaccions");
 
     @FXML
     private ChoiceBox<String> choiceBoxStatus;
@@ -107,33 +107,33 @@ public class Controller0 implements Initializable {
     @FXML
     private void statesPressed(ActionEvent event) {
         if (buttonFilterState.isSelected()) {
-            buttonFilterState.setStyle("-fx-background-color: #CFD8DC;");
+            buttonFilterState.setStyle("-fx-background-color: #a6a6a6; -fx-border-color: transparent;");
         } else {
-            buttonFilterState.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #455A64; -fx-border-width: 3px; -fx-padding: -5;");
+            buttonFilterState.setStyle("-fx-background-color: #d9d9d9; -fx-border-color: #455A64; -fx-border-width: 3px;");
         }
     }
 
     @FXML
     private void balancesPressed(ActionEvent event) {
         if (buttonFilterBalances.isSelected()) {
-            buttonFilterBalances.setStyle("-fx-background-color: #CFD8DC;");
+            buttonFilterBalances.setStyle("-fx-background-color: #a6a6a6; -fx-border-color: transparent;");
 /*             String maxBalancesInput = maxBalances.getText();
             String minBalancesInput = minBalances.getText();
             setFilterBalance(minBalancesInput + ";" + maxBalancesInput); */
         } else {
-            buttonFilterBalances.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #455A64; -fx-border-width: 3px;");
+            buttonFilterBalances.setStyle("-fx-background-color: #d9d9d9; -fx-border-color: #455A64; -fx-border-width: 3px;");
         }
     }
 
     @FXML
     private void transactionsPressed(ActionEvent event) {
         if (buttonFilterTransactions.isSelected()) {
-            buttonFilterTransactions.setStyle("-fx-background-color: #CFD8DC;");
+            buttonFilterTransactions.setStyle("-fx-background-color: #a6a6a6; -fx-border-color: transparent;");
 /*             String maxTransactionsInput = maxTransactions.getText();
             String minTransactionsInput = minTransactions.getText();
             setFilterTransactions(minTransactionsInput + ";" + maxTransactionsInput); */
         } else {
-            buttonFilterTransactions.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #455A64; -fx-border-width: 3px;");
+            buttonFilterTransactions.setStyle("-fx-background-color: #d9d9d9; -fx-border-color: #455A64; -fx-border-width: 3px;");
         }
     }
 
@@ -144,7 +144,6 @@ public class Controller0 implements Initializable {
 
     private void removeFilterStatus(){
         filters.remove("filterStatus");
-
     }
 
     private void setFilterBalance(String balance){
@@ -282,9 +281,9 @@ public class Controller0 implements Initializable {
         buttonFilterState.setSelected(false);
         buttonFilterBalances.setSelected(false);
         buttonFilterTransactions.setSelected(false);
-        buttonFilterState.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #455A64; -fx-border-width: 3px; -fx-padding: -5;");
-        buttonFilterBalances.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #455A64; -fx-border-width: 3px;");
-        buttonFilterTransactions.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #455A64; -fx-border-width: 3px;");
+        buttonFilterState.setStyle("-fx-background-color: #d9d9d9; -fx-border-color: #455A64; -fx-border-width: 3px; -fx-padding: -5;");
+        buttonFilterBalances.setStyle("-fx-background-color: #d9d9d9; -fx-border-color: #455A64; -fx-border-width: 3px;");
+        buttonFilterTransactions.setStyle("-fx-background-color: #d9d9d9; -fx-border-color: #455A64; -fx-border-width: 3px;");
         removeFilterStatus();
         removeFilterBalance();
         removeFilterTransactions();
@@ -317,14 +316,14 @@ public class Controller0 implements Initializable {
                         //JSONArray JSONlist = objResponse.get("");
                         
                         JSONArray jsonArray = objResponse.getJSONArray("message");
-                        // Assuming you already have a JSONArray object called jsonArray
+                        
                         int length = jsonArray.length();
                         for (int i = 0; i < length; i++) {
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
                             jsonObject.remove("anvers");
                             jsonObject.remove("revers");
                         }
-    
+                        System.out.println("Recibido del server: "+ jsonArray.toString());
                         for (int i = 0; i < jsonArray.length(); i++) {
                             addPersona(jsonArray.getJSONObject(i));
                         }

@@ -1,0 +1,27 @@
+.anchor-style {
+    -fx-background-color: #e8b8ba;
+}
+
+.toggle-button,  .button{
+    -fx-background-color: #d9d9d9;
+    -fx-border-color: #455A64;
+    -fx-border-width: 3px;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 6px;
+}
+
+/* .button {
+    -fx-background-color: #d9d9d9;
+    -fx-border-color: #455A64;
+    -fx-border-width: 3px;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+  } */
+
+  .scroll-pane {
+    -fx-border-color: #a6a6a6;
+    -fx-border-width: 6px;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+  }
+  

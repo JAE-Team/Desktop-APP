@@ -44,7 +44,7 @@ public class UtilsTooltip {
             tooltip.hide();
         });
         delay.setOnFinished(event -> {
-            double x = button.localToScreen(button.getBoundsInLocal()).getMinX() + button.getWidth() / 2;
+            double x = button.localToScreen(button.getBoundsInLocal()).getMinX() + button.getWidth();
             double y = button.localToScreen(button.getBoundsInLocal()).getMinY() + button.getHeight() / 2;
             tooltip.show(button, x, y);
         });
@@ -82,7 +82,7 @@ public class UtilsTooltip {
             tooltip.hide();
         });
         delay.setOnFinished(event -> {
-            double x = button.localToScreen(button.getBoundsInLocal()).getMinX() + button.getWidth() / 2;
+            double x = button.localToScreen(button.getBoundsInLocal()).getMinX() + button.getWidth();
             double y = button.localToScreen(button.getBoundsInLocal()).getMinY() + button.getHeight() / 2;
             tooltip.show(button, x, y);
         });

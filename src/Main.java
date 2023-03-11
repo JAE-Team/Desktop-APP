@@ -1,6 +1,9 @@
+import java.io.File;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
@@ -49,6 +52,10 @@ public class Main extends Application {
         stage.setMinWidth(windowWidth);
         stage.setMinHeight(windowHeight);
         stage.show();
+
+        String path = System.getProperty("user.dir") +
+        File.separator + "assets" + File.separator + "logo1.png";
+        stage.getIcons().add(new Image(path));
     }
 
     @Override
