@@ -14,7 +14,6 @@ public class Main extends Application {
     public static int port = 443;
     public static String protocol = "https";
     public static String host = "server-production-e914.up.railway.app";
-    
 
     // Exemple de configuració per Railway
     // public static int port = 443;
@@ -26,13 +25,13 @@ public class Main extends Application {
     public static Label consoleName = new Label();
     public static Label consoleDate = new Label();
     public static Label consoleBrand = new Label();
-    public static ImageView imageView = new ImageView(); 
+    public static ImageView imageView = new ImageView();
 
     public static void main(String[] args) {
-        // Iniciar app JavaFX   
+        // Iniciar app JavaFX
         launch(args);
     }
-    
+
     @Override
     public void start(Stage stage) throws Exception {
 
@@ -48,19 +47,19 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.setResizable(false);
         stage.onCloseRequestProperty(); // Call close method when closing window
-        stage.setTitle("JavaFX - NodeJS");
+        stage.setTitle("CORN DESKTOP");
         stage.setMinWidth(windowWidth);
         stage.setMinHeight(windowHeight);
         stage.show();
 
         String path = System.getProperty("user.dir") +
-        File.separator + "assets" + File.separator + "logo1.png";
+                File.separator + "assets" + File.separator + "logo1.png";
         stage.getIcons().add(new Image(path));
     }
 
     @Override
-    public void stop() { 
-        if(socketClient != null){
+    public void stop() {
+        if (socketClient != null) {
             socketClient.close();
         }
         System.exit(1); // Kill all executor services
