@@ -71,7 +71,7 @@ public class ControllerItem {
             JSONObject objResponse = new JSONObject(response);
             Object message = objResponse.get("message");
         
-            System.out.println("Recibido del server: "+objResponse.toString());
+            // System.out.println("Recibido del server: "+objResponse.toString());
             if (message instanceof String) {
                 UtilsAlerts.alertError("Error", "No se ha podido obtener del servidor la información de las transferencias de "+name.getText());
             } else if (message instanceof JSONArray) {

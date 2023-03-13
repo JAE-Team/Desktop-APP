@@ -1,4 +1,15 @@
+import java.util.Optional;
+
+import javafx.application.Platform;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.layout.GridPane;
+import javafx.util.Pair;
 
 /* Permite mostrar alerts, mensajes informativos donde se abre un panel con un texto y el usuario
  * da OK en un boton para cerrarlo. He usado esta clase en mi practica de M06 para hacer aparecer mensajes,
@@ -8,6 +19,24 @@ import javafx.scene.control.Alert;
  * y otro donde ademas podemos especificar el titulo.
  */
 public class UtilsAlerts {
+
+    public static String inputDialog(String title, String header, String content) {
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle(title);
+        dialog.setHeaderText(header);
+        dialog.setContentText(content);
+        Optional<String> result = dialog.showAndWait();
+        return result.orElse(null);
+    }
+
+    public static String inputDialog(String header, String content) {
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setHeaderText(header);
+        dialog.setContentText(content);
+        Optional<String> result = dialog.showAndWait();
+        return result.orElse(null);
+    }
+
     public static void alertError(String header, String content){
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
