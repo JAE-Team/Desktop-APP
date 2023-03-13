@@ -64,8 +64,8 @@ public class Controller0 implements Initializable {
 
     @FXML
     private ChoiceBox<String> choiceBoxStatus;
-    private String[] filtersOptions = { "All", "Not\nverified", "Waiting\nVerification", "Verification\nAccepted",
-            "Verification\nRejected" };
+    private String[] filtersOptions = { "Tots", "Not\nverificat", "Pendent\n de verificació", "Verificació\nAceptada",
+            "Verificació\nRebutjada" };
 
     @FXML
     private TextField maxBalances, minBalances, maxTransactions, minTransactions;
