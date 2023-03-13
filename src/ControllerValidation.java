@@ -57,6 +57,7 @@ public class ControllerValidation implements Initializable {
                     try {
                         JSONObject objResponse = new JSONObject(response);
                         UtilsAlerts.alertInformation("Verificació d'usuari", objResponse.getString("message"));
+                        goToView0();
                     } catch (Exception e) {
                         // TODO: handle exception
                     }
@@ -75,8 +76,8 @@ public class ControllerValidation implements Initializable {
                     try {
                         JSONObject objResponse = new JSONObject(response);
                         UtilsAlerts.alertInformation("Verificació d'usuari", objResponse.getString("message"));
+                        goToView0();
                     } catch (Exception e) {
-                        // TODO: handle exception
                     }
                 });
     }
@@ -88,13 +89,14 @@ public class ControllerValidation implements Initializable {
         if (objResponse.getString("status").equals("OK")) {
             JSONArray array = new JSONArray(objResponse.getJSONArray("message"));
             JSONObject jsonUser = array.getJSONObject(0);
+            try {
+                acceptar.setDisable(false);
+                rebutjar.setDisable(false);
 
-            String reversKey = jsonUser.getString("revers");
-            String anversKey = jsonUser.getString("anvers");
-
-            if (reversKey == null || anversKey == null) {
-
-            } else {
+                String reversKey = jsonUser.getString("revers");
+                String anversKey = jsonUser.getString("anvers");
+    
+                
                 byte[] decodedBytesAnvers = Base64.getDecoder().decode(reversKey);
                 byte[] decodedBytesRevers = Base64.getDecoder().decode(anversKey);
 
@@ -103,6 +105,12 @@ public class ControllerValidation implements Initializable {
 
                 anvers.setImage(imgAnvers);
                 revers.setImage(imgRevers);
+                
+            } catch (Exception e) {
+                acceptar.setDisable(true);
+                rebutjar.setDisable(true);
+                anvers.setImage(new Image("./assets/image_not_found.png"));
+                revers.setImage(new Image("./assets/image_not_found.png"));
             }
 
         }
