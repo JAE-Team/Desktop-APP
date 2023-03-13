@@ -74,7 +74,6 @@
             <Label fx:id="ammountField" text="100" GridPane.columnIndex="1" GridPane.rowIndex="5" />
          </children>
       </GridPane>
-      <ProgressIndicator fx:id="loading" layoutX="238.0" layoutY="475.0" visible="false" AnchorPane.rightAnchor="550.0" AnchorPane.topAnchor="275.0" />
       <ScrollPane layoutX="284.0" layoutY="250.0" maxHeight="400.0" maxWidth="500.0" prefHeight="278.0" prefWidth="422.0" AnchorPane.bottomAnchor="58.0" AnchorPane.leftAnchor="284.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="250.0">
          <content>
             <VBox fx:id="vBoxTransactions" />
@@ -150,7 +149,18 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <Button fx:id="buttonSearch" layoutX="139.0" layoutY="203.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMousePressed="#getUsers" prefHeight="30.0" prefWidth="100.0" text="Search Users" wrapText="true" />
-      <Button fx:id="buttonResetFilters" layoutX="20.0" layoutY="203.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMousePressed="#resetFilters" prefHeight="30.0" prefWidth="100.0" text="Reset Filters" wrapText="true" />
+      <Button fx:id="buttonSearch" layoutX="130.0" layoutY="203.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMousePressed="#getUsers" prefHeight="30.0" prefWidth="100.0" text="Search Users" wrapText="true" />
+      <Button fx:id="buttonResetFilters" layoutX="14.0" layoutY="203.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMousePressed="#resetFilters" prefHeight="30.0" prefWidth="100.0" text="Reset Filters" wrapText="true" />
+      <GridPane layoutX="235.0" layoutY="200.0" prefHeight="40.0" prefWidth="40.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <ProgressIndicator fx:id="loading" visible="false" />
+         </children>
+      </GridPane>
    </children>
 </AnchorPane>

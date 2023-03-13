@@ -72,7 +72,7 @@ public class Controller0 implements Initializable {
 
     private static Controller0 instance;
 
-    private JSONObject filters = new JSONObject("{}");
+    private String filterStatus ="", filterBalance = "", filterTransactions ="";
     /*
      * "filters" : {"filterBalance":"0;100", "filterTransactions":"0;10",
      * "filterStatus":"WAITING_VERIFICATION"}
@@ -80,6 +80,9 @@ public class Controller0 implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        filterStatus="";
+        filterBalance="";
+        filterTransactions="";
         getUsers();
 
         buttonFilterState.setSelected(false);
@@ -91,6 +94,8 @@ public class Controller0 implements Initializable {
         choiceBoxStatus.setStyle("-fx-font-size: 13px;");
 
         setAllTooltips();
+
+        loading.toFront();
         instance = this;
     }
 
@@ -124,11 +129,10 @@ public class Controller0 implements Initializable {
     private void balancesPressed(ActionEvent event) {
         if (buttonFilterBalances.isSelected()) {
             buttonFilterBalances.setStyle("-fx-background-color: #a6a6a6; -fx-border-color: transparent;");
-            /*
-             * String maxBalancesInput = maxBalances.getText();
-             * String minBalancesInput = minBalances.getText();
-             * setFilterBalance(minBalancesInput + ";" + maxBalancesInput);
-             */
+            String maxBalancesInput = maxBalances.getText();
+            String minBalancesInput = minBalances.getText();
+            filterBalance= minBalancesInput + ";" + maxBalancesInput;
+           
         } else {
             buttonFilterBalances
                     .setStyle("-fx-background-color: #d9d9d9; -fx-border-color: #455A64; -fx-border-width: 3px;");
@@ -139,44 +143,15 @@ public class Controller0 implements Initializable {
     private void transactionsPressed(ActionEvent event) {
         if (buttonFilterTransactions.isSelected()) {
             buttonFilterTransactions.setStyle("-fx-background-color: #a6a6a6; -fx-border-color: transparent;");
-            /*
-             * String maxTransactionsInput = maxTransactions.getText();
-             * String minTransactionsInput = minTransactions.getText();
-             * setFilterTransactions(minTransactionsInput + ";" + maxTransactionsInput);
-             */
+            
+            String maxTransactionsInput = maxTransactions.getText();
+            String minTransactionsInput = minTransactions.getText();
+            filterTransactions= minTransactionsInput + ";" + maxTransactionsInput;
+           
         } else {
             buttonFilterTransactions
                     .setStyle("-fx-background-color: #d9d9d9; -fx-border-color: #455A64; -fx-border-width: 3px;");
         }
-    }
-
-    private void setFilterStatus(String status) {
-        removeFilterStatus();
-        filters.append("filterStatus", status);
-    }
-
-    private void removeFilterStatus() {
-        filters.remove("filterStatus");
-    }
-
-    private void setFilterBalance(String balance) {
-        removeFilterBalance();
-        filters.append("filterBalance", balance);
-    }
-
-    private void removeFilterBalance() {
-        filters.remove("filterBalance");
-
-    }
-
-    private void setFilterTransactions(String transactions) {
-        removeFilterTransactions();
-        filters.append("filterTransactions", transactions);
-    }
-
-    private void removeFilterTransactions() {
-        filters.remove("filterTransactions");
-
     }
 
     /*
@@ -194,36 +169,35 @@ public class Controller0 implements Initializable {
         }
     }
 
-    private void openRangeDialog() {
-        try {
-            // Load the rangeDialog FXML file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("./assets/rangeDialog.fxml"));
-            Parent root = loader.load();
-
-            // Create a new scene with the loaded FXML file
-            Scene scene = new Scene(root);
-
-            // Create a new stage to display the scene
-            Stage stage = new Stage();
-            stage.setScene(scene);
-
-            // Show the stage
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     /*
      * Metodo que comprueba todos los campos y atualiza los filtros que enviaremos
      */
     private void updateFilters() throws Exception {
         if (buttonFilterState.isSelected()) {
-            String filterStatus = choiceBoxStatus.getValue().toString().replace("\n", " ");
-            setFilterStatus(filterStatus);
-
+            // String inputStatus = choiceBoxStatus.getValue().toString().replace("\n", " ");
+            String inputStatus ="";
+            int indexSelected = choiceBoxStatus.getSelectionModel().getSelectedIndex();
+            System.out.println("Sacamos de caja estatus "+inputStatus);
+            switch(indexSelected){
+                case 0:
+                    inputStatus ="";
+                    break;
+                case 1:
+                    inputStatus ="NOT_VERIFIED";
+                    break;
+                case 2:
+                    inputStatus ="WAITING_VERIFICATION";
+                    break;
+                case 3:
+                    inputStatus ="ACCEPTED";
+                    break;
+                case 4:
+                    inputStatus ="REJECTED";
+                    break;
+            }
+            filterStatus = inputStatus;
         } else {
-            removeFilterStatus();
+            filterStatus = "";
         }
 
         if (buttonFilterBalances.isSelected()) {
@@ -235,7 +209,7 @@ public class Controller0 implements Initializable {
                 double min = Double.parseDouble(minBalancesInput);
 
                 if (max >= min) {
-                    setFilterBalance(minBalancesInput + ";" + maxBalancesInput);
+                    filterBalance= minBalancesInput + ";" + maxBalancesInput;
                 } else {
                     UtilsAlerts.alertError("Error en el filtre de balanços",
                             "La quantitat maxima de balanços ha de ser major o igual que el valor mínim de transaccions");
@@ -254,7 +228,7 @@ public class Controller0 implements Initializable {
             }
 
         } else {
-            removeFilterBalance();
+            filterBalance="";
         }
 
         if (buttonFilterTransactions.isSelected()) {
@@ -266,7 +240,7 @@ public class Controller0 implements Initializable {
                 int min = Integer.parseInt(minTransactionsInput);
 
                 if (max >= min) {
-                    setFilterTransactions(minTransactionsInput + ";" + maxTransactionsInput);
+                    filterTransactions= minTransactionsInput + ";" + maxTransactionsInput;
                 } else {
                     UtilsAlerts.alertError("Error en el filtre de transaccions",
                             "El valor màxim de transaccions ha de ser major o igual que el valor mínim de transaccions");
@@ -286,7 +260,7 @@ public class Controller0 implements Initializable {
             }
 
         } else {
-            removeFilterTransactions();
+            filterTransactions="";
         }
     }
 
@@ -302,9 +276,9 @@ public class Controller0 implements Initializable {
                 .setStyle("-fx-background-color: #d9d9d9; -fx-border-color: #455A64; -fx-border-width: 3px;");
         buttonFilterTransactions
                 .setStyle("-fx-background-color: #d9d9d9; -fx-border-color: #455A64; -fx-border-width: 3px;");
-        removeFilterStatus();
-        removeFilterBalance();
-        removeFilterTransactions();
+        filterStatus="";
+        filterBalance="";
+        filterTransactions="";
         maxBalances.setText("");
         minBalances.setText("");
         maxTransactions.setText("");
@@ -324,32 +298,46 @@ public class Controller0 implements Initializable {
      */
     @FXML
     public void getUsers() {
+        System.out.println("Los filtros son filterStatus:"+filterStatus+" filterBalance:"+ filterBalance+" filterTransactions:"+ filterTransactions);
         try {
             updateFilters();
             vBoxList.getChildren().clear();
             loading.setVisible(true);
             JSONObject objJSON = new JSONObject("{}");
-            objJSON.put("filters", this.filters);
-            System.out.println("Post enviado:" + objJSON.toString());
+            if(filterStatus != ""){
+                objJSON.put("filterStatus", filterStatus);
+            }
+            if(filterBalance != ""){
+                objJSON.put("filterBalance", filterBalance);
+            }
+            if(filterTransactions !="" ){
+                objJSON.put("filterTransactions", filterTransactions);
+            }
+            objJSON.put("returnDNI", false);
+            System.out.println("\nPost enviado:" + objJSON.toString());
             UtilsHTTP.sendPOST(Main.protocol + "://" + Main.host + ":" + Main.port + "/api/get_profiles",
                     objJSON.toString(),
                     (response) -> {
-                        JSONObject objResponse = new JSONObject(response);
-                        // JSONArray JSONlist = objResponse.get("");
-
-                        JSONArray jsonArray = objResponse.getJSONArray("message");
-
-                        int length = jsonArray.length();
-                        for (int i = 0; i < length; i++) {
-                            JSONObject jsonObject = jsonArray.getJSONObject(i);
-                            jsonObject.remove("anvers");
-                            jsonObject.remove("revers");
+                        try{
+                            JSONObject objResponse = new JSONObject(response);
+                            // JSONArray JSONlist = objResponse.get("");
+                            
+                            JSONArray jsonArray = objResponse.getJSONArray("message");
+    
+                            int length = jsonArray.length();
+                            for (int i = 0; i < length; i++) {
+                                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                jsonObject.remove("anvers");
+                                jsonObject.remove("revers");
+                            }
+                            System.out.println("\nRecibido del server: " + jsonArray.toString());
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                addPersona(jsonArray.getJSONObject(i));
+                            }
+                            loading.setVisible(false);
+                        }catch(Exception e){
+                            UtilsAlerts.alertInformation("No hi han usuaris", "No s'ha trobat cap usuari que compleixi les condicions dels filtres");
                         }
-                        System.out.println("Recibido del server: " + jsonArray.toString());
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            addPersona(jsonArray.getJSONObject(i));
-                        }
-                        loading.setVisible(false);
                     });
         } catch (Exception e) {
             return;
